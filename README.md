@@ -38,7 +38,7 @@ First of all, the following values must be set:
         which are ordinary text files, that must be compatible with the function that reads them:
         `defineStrongRelations`, hence its documentations also includes the form of the `.pref` files.
 
-Strings describing paths should contain `/` and not `\\`, and should not end with `/` (function `toSlash` might come in handy).
+Strings describing paths should contain `/` and not `\`, and should not end with `/` (function `toSlash` might come in handy).
 
 
 The following file structure is expected:
