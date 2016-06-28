@@ -12,10 +12,25 @@ One should proceed as follows:
 First of all, the following values must be set:
 
 - `divizWFfolder`: the chosen workflow folder, where diviz outputs are stored
-- `performanceTableCSV`: the name of file with csv performance table
+- `performanceTableCSV`: name of the file, where a performance table is stored.
+        The file can be the result of a call of the function `createCSVPerformanceTable`,
+        whose documentation includes also the expected form of the performance table in
+        this file.
+        If the number of alternatives or criteria is high, it might me tedious to enter the values
+        of the table one by one (which is the case, when we use `createCSVPerformanceTable`).
+        In that case, user should find a better way to create a table.
 - `inputFolder`: location of `performanceTableCSV` and folders with settings files for the diviz RORUTA-related project `projectName`
 - `myProjects`: folder in `inputFolder`, where folders with setings file are stored
-- `projectName`: name of the RORUTA-related diviz-project
+- `projectName`: the name of a diviz workflow that is used to produce the results.
+        In the folder `inputFolder/projectName`, all `.xml` settings file are created
+        by the functions, such as `alternativesXML` etc. In the folder `divizWFfolder/projectName`, one can find all files, produced by diviz,
+        when running the workflow.
+- `preferences`: this folder is not necessary, if we get user-defined preferences
+        from some other source (for example, by defining them directly in this script)
+        or if we simply do not have any.
+        However, if the folder is there, we expect that it contains `.pref` files
+        which are ordinary text files, that must be compatible with the function that reads them:
+        `defineStrongRelations`, hence its documentations also includes the form of the `.pref` files.
 
 Folders should use `/` and not `\\`, and should not end with `/`.
 
@@ -41,28 +56,7 @@ It is necessary for the diviz workflow with the name `projectName`, to have the 
 - `RORUTA-NecessaryAndPossiblePreferenceRelations` (for the computation of relations)
 - `RORUTA-RepresentativeValueFunction` (for the most representative utility function)
 
-##### Description of some files and folders:
-
-- `performanceTableCSV`: Name of the file, where a performance table is stored.
-        The file can be the result of a call of the function `createCSVPerformanceTable`,
-        whose documentation includes also the expected form of the performance table in
-        this file.
-        If the number of alternatives or criteria is high, it might me tedious to enter the values
-        of the table one by one (which is the case, when we use `createCSVPerformanceTable`).
-        In that case, user should find a better way to create a table.
-- `projectName`:
-        Name of the diviz workflow that is used to produce the results.
-        In the folder `inputFolder/projectName`, all `.xml` settings file are created
-        by the functions, such as `alternativesXML` etc.
-        In the folder `divizWFfolder/projectName`, one can find all files, produced by diviz,
-        when running the workflow.
-- `preferences`:
-        Folder `preferences` is not necessary, if we get user-defined preferences
-        from some other source (for example, by defining them directly in this script)
-        or if we simply do not have any.
-        However, if the folder is there, we expect that it contains `.pref` files
-        which are ordinary text files, that must be compatible with the function that reads them:
-        `defineStrongRelations`, hence its documentations also includes the form of the `.pref` files.
+##### Defining relations
 
 When defining your relations/preferences, do not use the real names in the pairs:
 A list of (for example, strog) relations
@@ -83,5 +77,5 @@ Element `[aI, aJ]` of the list for relation `R` (strong: `>`, weak: `>=`, indiff
 Element `[[aI1, aJ1], [aI2, aJ2]]` of the list for intensities of the relation `R`, means that
 `U(aI1) - U(aJ1) R U(aI2) - U(aJ2)` for all utility functions `U`, and `R` as in the upper case.
 
-##### Choose a particular run to be analysed:
+##### Choosing a particular run to be analysed
 This is described in the documentation of the 'plotting' functions.
