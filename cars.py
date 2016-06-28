@@ -627,83 +627,6 @@ def defineStrongRelations(fileRels):
     prefList = [[pomo(x), pomo(y)] for [x,y] in prefList]
     return prefList
         
-###################################################################################
-# Some notes on use of the functions                                              #
-###################################################################################
-# When using this script, one should proceed as follows:
-#    1. use this script to create all input files and include them into the workflow in diviz
-#    2. run the workflow
-#    3. use this script to analyse the results
-#
-# We expect the following file structure:
-#    1. input files:
-#        inputFolder/
-#            performanceTableCSV (file)
-#            myProjects/
-#                projectName (folder)
-#            preferences (folder)
-#    2. output files:
-#        divizWFfolder/
-#            projectName/
-#                standard structure of output (and input) files/folders, produced by diviz
-#
-#    It is necessary for the diviz workflow with the name projectName, to have the following widgets:
-#        a) RORUTA-NecessaryAndPossiblePreferenceRelations (for the computation of relations)
-#        b) RORUTA-RepresentativeValueFunction (for the most representative utility function)
-#
-# Description of some files and folders:
-#
-#    performanceTableCSV:
-#        Name of the file, where a performance table is stored.
-#        The file can be the result of a call of createCSVPerformanceTable function,
-#        whose documentation includes also the expected form of the performance table in
-#        this file.
-#        
-#        If the number of alternatives or criteria is high, it might me tedious to enter the values
-#        of the table one by one (which is the case, when we use createCSVPerformanceTable).
-#        In that case, user should find a better way to create a table.
-#
-#    projectName:
-#        Name of the diviz workflow that is used to produce the results.
-#        
-#        In the inputFolder/projectName folder, all .xml settings file are created
-#        by the functions, such as alternativesXML etc.
-#
-#        In the divizWFfolder/projectName, one can find all files, produced by diviz,
-#        when running the workflow.
-#
-#    preferences:
-#        Folder preferences is not necessary, if we get user-defined preferences
-#        from some other source (for example, by defining them directly in this script)
-#        or if we simply do not have any.
-#        However, if the folder is there, we expect that it contains .pref files
-#        preferences/
-#            someName.pref
-#            anotherName.pref
-#            ...
-#        which are ordinary text files, that must be compatible with the function that reads them:
-#        defineStrongRelations, hence its documentations also includes the form of the .pref files.
-#
-# When defining your relations/preferences directly in this script, do not use the real names in the pairs:
-#    A list of (for example, strog) relations
-#         [['Mazda CX-5 ... 2015 - 2016', 'Audi A3 ... 2014 - 2016'], ...]
-#    is not valid. You must use the abbreviations of form a<id>, instead of the real names,
-#    where 0 <= id < number of alternatives. The correct version of a list with the relations
-#    (for the same two cars) would be
-#        [['a1', 'a0'], ...].
-#
-#    The id of a alternative is the index of the alternative in the list of alternatives myAlternatives.
-#    The same holds for weak and indif relations (and for the lists, describing the intensities
-#    of the relations). Some examples can be seen in the comments below.
-#
-#    Element [aI, aJ] of the list for relation R (strong: >, weak: >=, indifferent: =), means that
-#    aI R aJ.
-#    Element [[aI1, aJ1],[aI2, aJ2]] of the list for intensities of the relation R, means that
-#    U(aI1) - U(aJ1) R U(aI2) - U(aJ2) for all utility functions U, and R as in the upper case.
-#
-# How to choose a particular run to be analysed:
-#        This is described in the documentation of the 'plotting' functions.
-
 
 if __name__ == "__main__":
     #DEFINE NECESSARY FOLDERS and a FILE
@@ -778,8 +701,3 @@ if __name__ == "__main__":
             drawRelations(alt, divizWFfolder, False, file=variants[ind])
 
             dicty = drawUtilityFunction(divizWFfolder, criteria, file=variants[ind])
-    if 1:
-        a = r"C:/Users/matej/ds"
-        b = "C:\\Userst\\matej\\ds/"
-        c = b[:-1] + "\\"
-        print(toSlash(a), toSlash(b), toSlash(c))
