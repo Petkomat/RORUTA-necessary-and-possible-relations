@@ -10,6 +10,7 @@ import matplotlib.pyplot as plt
 plt.rcParams['figure.figsize'] = 20, 10
 plt.rcParams.update({'font.size': 15})
 
+
 def toSlash(myPath):
     """
     Replaces backslashes in myPath with slashes and removes the last character of the modified myPath
@@ -34,33 +35,33 @@ def toSlash(myPath):
 ###################################################################################
 
 
-def populatePerfTableDict(carName):
+def populatePerfTableDict(alternativeName):
     """
     For Semi-automatic filling of the performanceTableDict. You will be asked to enter
     the values of the criteria. The input values are saved to performanceTableDict.
 
-    :param carName: The name of the car, we want to describe.
+    :param alternativeName: The name of the alternative, we want to describe.
     :return: None
     """
 
-    print("Collecting data for", carName)
-    performanceTableDict[carName] = {}
+    print("Collecting data for", alternativeName)
+    performanceTableDict[alternativeName] = {}
     for i,x in enumerate(criteriaNames):
         numberType = numberTypes[i]
-        performanceTableDict[carName][x] = numberType(input("Enter {}: ".format(x)).strip())
+        performanceTableDict[alternativeName][x] = numberType(input("Enter {}: ".format(x)).strip())
 
 
 def createCSVPerformanceTable():
     """
     Creates a CSV (comma-separated) of the form
 
-    car,<crit1>,<crit2>,...,<critM>
+    alternative,<crit1>,<crit2>,...,<critM>
     <alternative1>,<value11>,<value12>,...
     ...
     <alternativeN>,<valueN1>,...
 
-    where <critJ> are the names of the criteria, <alternativeI> are names of the cars, and <valueIJ> is the
-    value of J-th criterion for the I-th car.
+    where <critJ> are the names of the criteria, <alternativeI> are names of the alternatives, and <valueIJ> is the
+    value of J-th criterion for the I-th alternative.
 
     This file (table in it) is necessary for (almost) all of the following operations.
     If the inputFolder/performanceTableCSV already exists, nothing happens, otherwise populatePerfTableDict is used,
@@ -81,7 +82,7 @@ def createCSVPerformanceTable():
         for x in myAlternatives:
             populatePerfTableDict(x)
         with open("{}/{}".format(inputFolder, performanceTableCSV), "w") as f:
-            print("{}{}{}".format("car", separator, separator.join(criteriaNames)), file=f)
+            print("{}{}{}".format(alternative, separator, separator.join(criteriaNames)), file=f)
             for x in myAlternatives:
                 line = [x] + [str(performanceTableDict[x][y]) for y in criteriaNames]
                 print(separator.join(line),  file=f)
@@ -101,7 +102,7 @@ def readPerformanceCSV():
         for x in f:
             line = x.strip().split(",")
             alter.append(line[0])
-            perf[line[0]] = {critNames[i - 1]:line[i] for i in range(1, len(line))}
+            perf[line[0]] = {critNames[i - 1]: line[i] for i in range(1, len(line))}
     return alter, critNames, perf
 
 ###################################################################################
@@ -199,7 +200,7 @@ def perfTableXML(alt, criteria, perf):
         print("{}<title>Performance table</title>".format(spaceString * space), file=f)
         space -= 1
         print("{}</description>".format(spaceString * space), file=f)
-        
+
         for i in range(len(alt)):
             print("{}<alternativePerformances>".format(spaceString * space), file=f)
             space += 1
@@ -214,13 +215,13 @@ def perfTableXML(alt, criteria, perf):
                 print("{0}<{1}>{2}</{1}>".format(spaceString * space, mtype, perf[alt[i]][criteria[j]]), file=f)
                 space -= 1
                 print("{}</value>".format(spaceString * space), file=f)
-                
+
                 space -= 1
                 print("{}</performance>".format(spaceString * space), file=f)
 
             space -= 1
             print("{}</alternativePerformances>".format(spaceString * space), file=f)
-        
+
         space -= 1
         print("{}</performanceTable>".format(spaceString * space), file=f)
         space -= 1
@@ -254,7 +255,7 @@ def preferencesXML(prefList):
                 for pair in prefList[i]:
                     printf("{}<pair>".format(spaceString * space))
                     space += 1
-                    
+
                     printf("{}<initial>".format(spaceString * space))
                     space += 1
                     printf("{}<alternativeID>{}</alternativeID>".format(spaceString * space, pair[0]))
@@ -265,16 +266,16 @@ def preferencesXML(prefList):
                     printf("{}<alternativeID>{}</alternativeID>".format(spaceString * space, pair[1]))
                     space -= 1
                     printf("{}</terminal>".format(spaceString * space))
-                    
+
                     space -= 1
                     printf("{}</pair>".format(spaceString * space))
-                
+
                 space -= 1
                 printf("{}</pairs>".format(spaceString * space))
 
                 space -= 1
                 printf("{}</alternativesComparisons>".format(spaceString * space))
-    
+
         space -= 1
         print(endTag(), file=f)
 
@@ -348,13 +349,13 @@ def intensitiesOfPrefXML(pairsOfPairs):
                         space += 1
                         printf("{}<alternativesSet>".format(spaceString * space))
                         space += 1
-                        for elt in pp[j]:                            
+                        for elt in pp[j]:
                             printf("{}<element>".format(spaceString * space))
                             space += 1
                             printf("{}<alternativeID>{}</alternativeID>".format(spaceString * space, elt))
                             space -= 1
-                            printf("{}</element>".format(spaceString * space))                            
-                            
+                            printf("{}</element>".format(spaceString * space))
+
                         space -= 1
                         printf("{}</alternativesSet>".format(spaceString * space))
 
@@ -364,7 +365,7 @@ def intensitiesOfPrefXML(pairsOfPairs):
                     space -= 1
                     printf("{}</pair>".format(spaceString * space))
                     space -= 1
-                        
+
 
                 printf("{}</pairs>".format(spaceString * space))
                 printf('{}</alternativesComparisons>'.format(spaceString * space))
@@ -435,7 +436,7 @@ def readRelations(relations, inputRels):
     """
 
     print("Reading", relations)
-                 
+
     prefTypes = {"strong": 0, "weak": 1, "indif": 2}
     pairs = [[],[],[]] if inputRels else []
     pair = [None, None]
@@ -561,7 +562,7 @@ def drawUtilityFunction(divizWorkflowFolder, criteriaNames, file = "", dimGraphs
     run = "{}/{}".format(divizWorkflowFolder, file if file != "" else latestRun(divizWorkflowFolder))
     outputFolder = "{}/{}".format(run, "RORUTA-RepresentativeValueFunction-1")
     functionDict = getRepresentativeFunction("{}/{}".format(outputFolder, "representative-value-function.xml"))
-    
+
     #draw marginal functions
     n = len(functionDict)               # number of criteria
     graphs = {i:[] for i in range(n)}   # {crit1: (list of xs, list of ys, list of x-labels), ...}
@@ -575,13 +576,13 @@ def drawUtilityFunction(divizWorkflowFolder, criteriaNames, file = "", dimGraphs
             xs = [t for t in range(len(points))]
             namesX = [t for t,u in points]
         ys = [float(u) for t,u in points]
-        
+
         graphs[i] = (xs, ys, namesX)
     for i in range(n, dimGraphs[0] * dimGraphs[1]):
         graphs[i] = ([0],[0], [""])
-        
+
     f, axes = plt.subplots(dimGraphs[0], dimGraphs[1])
-    
+
     for i in range(len(axes)):
         for j in range(len(axes[i])):
             ind = dimGraphs[1] * i + j
@@ -626,3 +627,78 @@ def defineStrongRelations(fileRels):
                 prefList.append([a.group(1), a.group(2)])
     prefList = [[pomo(x), pomo(y)] for [x,y] in prefList]
     return prefList
+
+
+#############################################################################################
+# Examples                                                                                  #
+#############################################################################################
+
+# DEFINE NECESSARY FOLDERS and a FILE
+divizWFfolder = "C:/Users/matejp/diviz_workspace/rorUtaNecessaryAndPossibleRelations"
+performanceTableCSV = "performances.csv"
+inputFolder = "C:/Users/matejp/Documents/predavanja/decisionSupport"
+myProjects = "divizStvari"
+projectName = "rorUtaNecessaryAndPossibleRelations"
+
+divizWFfolder = toSlash(divizWFfolder)
+inputFolder = toSlash(inputFolder)
+
+# DEFINE THE PROBLEM
+myAlternatives = sorted(["Audi A3 1.6 TDI 110hp Ambiente 2014 - 2016",                  # alternatives
+                         "Mazda CX-5 SkyActiv-D 150 Skylease GT 2015 - 2016",
+                         "Citroen C3 1.4 HDi 70 Ligne Business 2010 - 2011",
+                         "Renault Twizy Color 2012 - 2016",
+                         "Fiat 500 1.2 Naked 2008 - 2009",
+                         "Peugeot 308 SW Active 1.6 VTi 2011 - 2013",
+                         "Toyota Yaris 1.0 VVT-i Acces 2012 - 2014",
+                         "Volkswagen Sharan 2.0 Comfortline 2000 - 2008",
+                         "Skoda Fabia Sedan 1.4 16V 75hp Elegance 2004 - 2006"])
+alternative = "car"
+criteriaNames = ["price",                                                               # criteria
+                 "#doors",
+                 "#seats",
+                 "trunkVolume",
+                 "maxEnginePower",
+                 "fuelConsumption",
+                 "releaseDate",
+                 "crashTest"]   
+numberTypes = [int if "#" in x or "Date" in x or "crashTest" in x else float for x in criteriaNames]  # types of criteria: int of float; needed for nicer/cleaner representation
+
+# CREATE A PERFORMANCE TABLE IF NECESSARY, AND READ IT
+performanceTableDict = {}
+createCSVPerformanceTable()
+alt, criteria, perf = readPerformanceCSV()  
+
+# CREATE XML SETTINGS FILES:
+alternativesXML(alt)                                    # alternatives
+criteriaXML(criteria)                                   # criteria
+perfTableXML(alt, criteria, perf)                       # performance table
+
+variants = ["linearna",                                 # names of folders whith some user defined preferences
+            "nakljucnaTretjina",                        # in .pref files
+            "full",
+            "deterministicnaPolovica",
+            "linearnaBolje",
+            "linearna2"]
+
+strong = []                                             # [["a0", "a8"],["a1","a2"],["a3", "a8"],["a6","a7"],["a1","a0"],["a4","a3"],["a2","a4"],["a5","a8"]][:4]
+weak = []                                               # [["a0", "a1"]]#[["a3", "a0"]]
+indif = []                                              # [["a2","a7"],["a7", "a2"],["a1","a6"],["a6","a1"],["a5","a6"],["a6","a5"]][:0]#[["a6","a7"],["a7","a6"]]#[["a1" ,"a2"]]#[["a1", "a4"],["a8","a0"]]
+strong = defineStrongRelations("{}/{}".format("C:/Users/matejp/Documents/predavanja/decisionSupport/preferences", "{}.pref".format(variants[-2]))) #user-defined strong relations
+preferencesXML([strong, weak, indif])                   # preferences
+
+directions = [1, 0, 0, 0, 0, 1, 0, 0]
+criteriaDirectXML(directions)                           # directions of criteria
+                
+strongInt = []                                          # [[["a3", "a4"],["a7", "a8"]]]#[[["a0", "a1"],["a4", "a5"]]]#[["a0", "a1"], ["a0", "a2"]]
+weakInt = []                                            # [["a0", "a1"]]#[["a3", "a0"]]
+indifInt = []                                           # [[["a6","a7"],["a7","a6"]]]#[["a1" ,"a2"]]#[["a1", "a4"],["a8","a0"]]
+intensitiesOfPrefXML([strongInt, weakInt, indifInt])    # intensities of preferences
+    
+
+# PLOT THE RELATIONS AND MOST REPRESENTATIVE UTILITY FUNCTION
+ind = -1
+drawRelations(alt, divizWFfolder, True, file=variants[ind])
+drawRelations(alt, divizWFfolder, False, file=variants[ind])
+
+dicty = drawUtilityFunction(divizWFfolder, criteria, file=variants[ind])
