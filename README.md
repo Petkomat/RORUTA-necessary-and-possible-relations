@@ -37,7 +37,7 @@ Folders should use `/` and not `\\`, and should not end with `/`.
 
 The following file structure is expected:
 
-##### Input files:
+##### Input files
   ````
 inputFolder/
     performanceTableCSV (file)
@@ -45,7 +45,7 @@ inputFolder/
         projectName     (folder)
     preferences         (folder)
 ````
-##### Output files:
+##### Output files
 ````
 divizWFfolder/
     projectName/
