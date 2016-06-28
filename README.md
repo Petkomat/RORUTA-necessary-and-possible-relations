@@ -2,6 +2,12 @@
 
 Use of the widgets `RORUTA-NecessaryAndPossiblePreferenceRelations` and `RORUTA-RepresentativeValueFunction` from [diviz](http://www.decision-deck.org/diviz/download.html).
 
+## Dependencies
+
+- `Python3`; if you want to plot the most representative utility function, the `matplotlib` library is needed
+- `diviz` (tested on the version `1.15.1`)
+
+## Useful notes
 
 One should proceed as follows:
  
