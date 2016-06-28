@@ -636,8 +636,8 @@ def defineStrongRelations(fileRels):
 # DEFINE NECESSARY FOLDERS and a FILE
 divizWFfolder = "C:/Users/matejp/diviz_workspace/rorUtaNecessaryAndPossibleRelations"
 performanceTableCSV = "performances.csv"
-inputFolder = "C:/Users/matejp/Documents/predavanja/decisionSupport"
-myProjects = "divizStvari"
+inputFolder = "./carsExample/myInputs"
+myProjects = "myWorkflows"
 projectName = "rorUtaNecessaryAndPossibleRelations"
 
 divizWFfolder = toSlash(divizWFfolder)
@@ -684,7 +684,7 @@ variants = ["linearna",                                 # names of folders whith
 strong = []                                             # [["a0", "a8"],["a1","a2"],["a3", "a8"],["a6","a7"],["a1","a0"],["a4","a3"],["a2","a4"],["a5","a8"]][:4]
 weak = []                                               # [["a0", "a1"]]#[["a3", "a0"]]
 indif = []                                              # [["a2","a7"],["a7", "a2"],["a1","a6"],["a6","a1"],["a5","a6"],["a6","a5"]][:0]#[["a6","a7"],["a7","a6"]]#[["a1" ,"a2"]]#[["a1", "a4"],["a8","a0"]]
-strong = defineStrongRelations("{}/{}".format("C:/Users/matejp/Documents/predavanja/decisionSupport/preferences", "{}.pref".format(variants[-2]))) #user-defined strong relations
+strong = defineStrongRelations("{}/preferences/{}".format(inputFolder, "{}.pref".format(variants[2]))) #user-defined strong relations
 preferencesXML([strong, weak, indif])                   # preferences
 
 directions = [1, 0, 0, 0, 0, 1, 0, 0]
@@ -697,7 +697,7 @@ intensitiesOfPrefXML([strongInt, weakInt, indifInt])    # intensities of prefere
     
 
 # PLOT THE RELATIONS AND MOST REPRESENTATIVE UTILITY FUNCTION
-ind = -1
+ind = 2
 drawRelations(alt, divizWFfolder, True, file=variants[ind])
 drawRelations(alt, divizWFfolder, False, file=variants[ind])
 
