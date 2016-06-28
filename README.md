@@ -9,6 +9,17 @@ One should proceed as follows:
 2. Run the workflow.
 3. Use this script to analyse the results.
 
+First of all, the following values must be set:
+
+- `divizWFfolder`: the chosen workflow folder, where diviz outputs are stored
+- `performanceTableCSV`: the name of file with csv performance table
+- `inputFolder`: location of `performanceTableCSV` and folders with settings files for the diviz RORUTA-related project `projectName`
+- `myProjects`: folder in `inputFolder`, where folders with setings file are stored
+- `projectName`: name of the RORUTA-related diviz-project
+
+Folders should use `/` and not `\\`, and should not end with `/`.
+
+
 The following file structure is expected:
 
 ##### Input files:
@@ -23,7 +34,7 @@ inputFolder/
 ````
 divizWFfolder/
     projectName/
-        standard structure of output (and input) files/folders, produced by diviz
+        standard structure of output (and input) files and folders, produced by diviz
 ````
 It is necessary for the diviz workflow with the name `projectName`, to have the following widgets:
 
