@@ -1,5 +1,4 @@
 from helpingFunctions import *
-        
 
 
 #DEFINE NECESSARY FOLDERS and a FILE
@@ -8,9 +7,6 @@ performanceTableCSV = "performances.csv"
 inputFolder = "C:/Users/matejp/Documents/predavanja/decisionSupport"
 myProjects = "divizStvari"
 projectName = "rorUtaNecessaryAndPossibleRelations"
-
-
-
 
 divizWFfolder = toSlash(divizWFfolder)
 inputFolder = toSlash(inputFolder)
@@ -35,12 +31,9 @@ criteriaNames = ["price",                                                       
                  "crashTest"]   
 numberTypes = [int if "#" in x or "Date" in x or "crashTest" in x else float for x in criteriaNames] #types of criteria: int of float; needed for nicer/cleaner representation    
 
-    
-
 #CREATE A PERFORMANCE TABLE IF NECESSARY, AND READ IT
 performanceTableDict = {} #{alternative1: {crit1: value11, crit2: value12, ...}, alternative2: {crit1: value21, crit2: value22, ...}, ...}
 createCSVPerformanceTable()
-
 alt, criteria, perf = readPerformanceCSV()  
 
 #CREATE XML SETTINGS FILES:
