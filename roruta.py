@@ -4,6 +4,7 @@ from functools import partial
 from re import search
 from tkinter import *
 import matplotlib.pyplot as plt
+from random import sample
 
 
 # set the size of picture and font for pyplot
@@ -627,6 +628,25 @@ def defineStrongRelations(fileRels):
                 prefList.append([a.group(1), a.group(2)])
     prefList = [[pomo(x), pomo(y)] for [x,y] in prefList]
     return prefList
+
+
+def createRandomSubsampleOfAllRelations(linearOrder, size, randomSeed=12345):
+    """
+
+    :param linearOrder: [indexOfTheBestAlternative, indexOfSecondBestAlternative, ...], where indices >= 0.
+    :param size: the size of the random sample
+    :param randomSeed: randomSeed used
+    :return:
+    """
+    indices = {x: i for i, x in enumerate(linearOrder)}
+    n = len(linearOrder)
+    maxPairs = n * (n + 1) // 2
+    if not 0 <= size <= maxPairs:
+        raise Exception("size = {} breaks the assumption 0 <= size <= #different pairs.".format(size))
+    subsample = set()
+    while len(subsample) < size:
+        subsample.add(())
+
 
 
 #############################################################################################
