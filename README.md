@@ -62,6 +62,9 @@ It is necessary for the diviz workflow with the name `projectName`, to have the 
 - `RORUTA-NecessaryAndPossiblePreferenceRelations` (for the computation of relations)
 - `RORUTA-RepresentativeValueFunction` (for the most representative utility function)
 
+![Workflow structure](https://github.com/Petkomat/RORUTA-necessary-and-possible-relations/blob/master/workflow.pdf "Diviz workflow")
+
+
 ##### Defining relations
 
 When defining your relations/preferences, do not use the real names in the pairs:
