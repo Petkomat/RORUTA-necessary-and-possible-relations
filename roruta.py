@@ -734,7 +734,7 @@ perfTableXML(alt, criteria, perf)                       # performance table
 variants = ["linear",                                 # names of folders whith some user defined preferences
             "random12",                               # in .pref files
             "full"]
-ind = 1
+ind = 2
 
 strong = []                                             # [["a0", "a8"],["a1","a2"],["a3", "a8"],["a6","a7"],["a1","a0"],["a4","a3"],["a2","a4"],["a5","a8"]]
 weak = []                                               # [["a0", "a1"]]#[["a3", "a0"]]
@@ -752,7 +752,8 @@ intensitiesOfPrefXML([strongInt, weakInt, indifInt])    # intensities of prefere
 
 
 # PLOT THE RELATIONS AND MOST REPRESENTATIVE UTILITY FUNCTION
-drawRelations(alt, divizWFfolder, True, divizRun=variants[ind])             # here, we have renamed the diviz run, so
-drawRelations(alt, divizWFfolder, False, divizRun=variants[ind])            # that it equals the name of the variant
-dicty = drawUtilityFunction(divizWFfolder, criteria, file=variants[ind])    # of user defined preferecnes.
+#drawRelations(alt, divizWFfolder, True, divizRun=variants[ind])             # here, we have renamed the diviz run, so
+#drawRelations(alt, divizWFfolder, False, divizRun=variants[ind])            # that it equals the name of the variant
+for indi in range(3):
+    dicty = drawUtilityFunction(divizWFfolder, criteria, file=variants[indi])    # of user defined preferecnes.
 

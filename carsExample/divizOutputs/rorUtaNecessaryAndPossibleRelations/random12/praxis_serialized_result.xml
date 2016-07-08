@@ -1,89 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <result version="1">
-    <creationDate date="2016-07-08T14:35:19.444+0200">1467981319444</creationDate>
-    <date date="2016-07-08T14:35:31.734+0200">1467981331734</date>
+    <creationDate date="2016-07-08T15:23:50.066+0200">1467984230066</creationDate>
+    <date date="2016-07-08T15:24:02.261+0200">1467984242261</date>
     <workflowID>ACED0005757200135B4C6A6176612E6C616E672E4F626A6563743B90CE589F1073296C020000787000000002737200116A6176612E726D692E6467632E564D4944F8865BAFA4A56DB60200025B0004616464727400025B424C00037569647400154C6A6176612F726D692F7365727665722F5549443B7870757200025B42ACF317F8060854E002000078700000000851EF976B572F8748737200136A6176612E726D692E7365727665722E5549440F12700DBF364F12020003530005636F756E744A000474696D65490006756E6971756578708C7100000152CAA67F1ABA8898A4740023726F725574614E6563657373617279416E64506F737369626C6552656C6174696F6E73</workflowID>
-    <executionID>2016-07-08T14_35_19.391+020016</executionID>
+    <executionID>2016-07-08T15_23_50.014+020020</executionID>
     <!--The global status-->
     <status>OK</status>
     <zipFile />
     <!--The detailed status, by program
 Every value that is not made of ASCII printable characters only is base64-encoded-->
     <programs_status>
-        <program id="RORUTA-NecessaryAndPossiblePreferenceRelations-1" status="OK" start="1467981319444" end="1467981331734">
+        <program id="RORUTA-RepresentativeValueFunction-1" status="OK" start="1467984230066" end="1467984242261">
             <item key="exit_value">
                 <value base64_encoded="false"><![CDATA[0]]></value>
             </item>
             <item key="stdout">
-                <value base64_encoded="false"><![CDATA[nSjVHRMFOdPfrEZk
-messages.xml
-necessary-relations.xml
-possible-relations.xml]]></value>
-            </item>
-            <item key="files_not_found">
-                <value base64_encoded="false" />
-            </item>
-            <item key="start">
-                <value base64_encoded="false"><![CDATA[Fri Jul 08 14:35:19 CEST 2016]]></value>
-            </item>
-            <item key="end">
-                <value base64_encoded="false"><![CDATA[Fri Jul 08 14:35:26 CEST 2016]]></value>
-            </item>
-            <item key="stderr">
-                <value base64_encoded="false"><![CDATA[**************************************************************************
-Welcome to the Decision Deck Server located at Telecom Bretagne.
-This is the web-service: RORUTA-NecessaryAndPossiblePreferenceRelations-PUT
-  version 1.0
-  by Pawel Rychly, 2014-2015
-**************************************************************************
-Return Ticket: nSjVHRMFOdPfrEZk
-Request solution for problem nSjVHRMFOdPfrEZk
-Wrote file:messages.xml
-Wrote file:necessary-relations.xml
-Wrote file:possible-relations.xml]]></value>
-            </item>
-            <item key="script">
-                <value base64_encoded="false"><![CDATA[setenv PYTHONUNBUFFERED 1
-set callXMCDAService="genericXMCDAService.py -U http://server-telecom-bretagne.diviz.org/soap/%s.py -n "
-
-#parameters: parameters.xml
-cat > parameters.xml <<EOF
-<?xml version="1.0" encoding="UTF-8"?>
-<xmcda:XMCDA xmlns:xmcda="http://www.decision-deck.org/2012/XMCDA-2.2.0"
-        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xsi:schemaLocation="http://www.decision-deck.org/2012/XMCDA-2.2.0 http://www.decision-deck.org/xmcda/_downloads/XMCDA-2.2.0.xsd">
-                
-                     <methodParameters>
-						<parameter name="strict">
-                            <value>
-                                <boolean>true</boolean>
-                            </value>
-                        </parameter>
-					</methodParameters>
-                    
-            </xmcda:XMCDA>
-EOF
-$callXMCDAService RORUTA-NecessaryAndPossiblePreferenceRelations-PUT -S -t 60  -v alternatives:alternatives.xml criteria:criteria.xml performances:performances.xml preferences:preferences.xml intensities-of-preferences:intensities-of-preferences.xml criteria-preference-directions:criteria-preference-directions.xml parameters:parameters.xml]]></value>
-            </item>
-            <output parameterID="necessary-relations">
-                <pathElement base64_encoded="false"><![CDATA[RORUTA-NecessaryAndPossiblePreferenceRelations-1]]></pathElement>
-                <pathElement base64_encoded="false"><![CDATA[necessary-relations.xml]]></pathElement>
-            </output>
-            <output parameterID="possible-relations">
-                <pathElement base64_encoded="false"><![CDATA[RORUTA-NecessaryAndPossiblePreferenceRelations-1]]></pathElement>
-                <pathElement base64_encoded="false"><![CDATA[possible-relations.xml]]></pathElement>
-            </output>
-            <output parameterID="messages">
-                <pathElement base64_encoded="false"><![CDATA[RORUTA-NecessaryAndPossiblePreferenceRelations-1]]></pathElement>
-                <pathElement base64_encoded="false"><![CDATA[messages.xml]]></pathElement>
-            </output>
-        </program>
-        <program id="RORUTA-RepresentativeValueFunction-1" status="OK" start="1467981319444" end="1467981331734">
-            <item key="exit_value">
-                <value base64_encoded="false"><![CDATA[0]]></value>
-            </item>
-            <item key="stdout">
-                <value base64_encoded="false"><![CDATA[sYntyNj8pAJLVdju
+                <value base64_encoded="false"><![CDATA[wpLDTo4vE2oJpVzS
 messages.xml
 representative-value-function.xml]]></value>
             </item>
@@ -91,10 +23,10 @@ representative-value-function.xml]]></value>
                 <value base64_encoded="false" />
             </item>
             <item key="start">
-                <value base64_encoded="false"><![CDATA[Fri Jul 08 14:35:26 CEST 2016]]></value>
+                <value base64_encoded="false"><![CDATA[Fri Jul 08 15:23:56 CEST 2016]]></value>
             </item>
             <item key="end">
-                <value base64_encoded="false"><![CDATA[Fri Jul 08 14:35:30 CEST 2016]]></value>
+                <value base64_encoded="false"><![CDATA[Fri Jul 08 15:24:01 CEST 2016]]></value>
             </item>
             <item key="stderr">
                 <value base64_encoded="false"><![CDATA[**************************************************************************
@@ -103,8 +35,8 @@ This is the web-service: RORUTA-RepresentativeValueFunction-PUT
   version 1.0
   by Pawel Rychly, 2014-2015
 **************************************************************************
-Return Ticket: sYntyNj8pAJLVdju
-Request solution for problem sYntyNj8pAJLVdju
+Return Ticket: wpLDTo4vE2oJpVzS
+Request solution for problem wpLDTo4vE2oJpVzS
 Wrote file:messages.xml
 Wrote file:representative-value-function.xml]]></value>
             </item>
@@ -142,6 +74,74 @@ $callXMCDAService RORUTA-RepresentativeValueFunction-PUT -S -t 60  -v alternativ
             </output>
             <output parameterID="messages">
                 <pathElement base64_encoded="false"><![CDATA[RORUTA-RepresentativeValueFunction-1]]></pathElement>
+                <pathElement base64_encoded="false"><![CDATA[messages.xml]]></pathElement>
+            </output>
+        </program>
+        <program id="RORUTA-NecessaryAndPossiblePreferenceRelations-1" status="OK" start="1467984230066" end="1467984242261">
+            <item key="exit_value">
+                <value base64_encoded="false"><![CDATA[0]]></value>
+            </item>
+            <item key="stdout">
+                <value base64_encoded="false"><![CDATA[6Lm8DnJuZFGJyvCD
+messages.xml
+necessary-relations.xml
+possible-relations.xml]]></value>
+            </item>
+            <item key="files_not_found">
+                <value base64_encoded="false" />
+            </item>
+            <item key="start">
+                <value base64_encoded="false"><![CDATA[Fri Jul 08 15:23:50 CEST 2016]]></value>
+            </item>
+            <item key="end">
+                <value base64_encoded="false"><![CDATA[Fri Jul 08 15:23:56 CEST 2016]]></value>
+            </item>
+            <item key="stderr">
+                <value base64_encoded="false"><![CDATA[**************************************************************************
+Welcome to the Decision Deck Server located at Telecom Bretagne.
+This is the web-service: RORUTA-NecessaryAndPossiblePreferenceRelations-PUT
+  version 1.0
+  by Pawel Rychly, 2014-2015
+**************************************************************************
+Return Ticket: 6Lm8DnJuZFGJyvCD
+Request solution for problem 6Lm8DnJuZFGJyvCD
+Wrote file:messages.xml
+Wrote file:necessary-relations.xml
+Wrote file:possible-relations.xml]]></value>
+            </item>
+            <item key="script">
+                <value base64_encoded="false"><![CDATA[setenv PYTHONUNBUFFERED 1
+set callXMCDAService="genericXMCDAService.py -U http://server-telecom-bretagne.diviz.org/soap/%s.py -n "
+
+#parameters: parameters.xml
+cat > parameters.xml <<EOF
+<?xml version="1.0" encoding="UTF-8"?>
+<xmcda:XMCDA xmlns:xmcda="http://www.decision-deck.org/2012/XMCDA-2.2.0"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.decision-deck.org/2012/XMCDA-2.2.0 http://www.decision-deck.org/xmcda/_downloads/XMCDA-2.2.0.xsd">
+                
+                     <methodParameters>
+						<parameter name="strict">
+                            <value>
+                                <boolean>true</boolean>
+                            </value>
+                        </parameter>
+					</methodParameters>
+                    
+            </xmcda:XMCDA>
+EOF
+$callXMCDAService RORUTA-NecessaryAndPossiblePreferenceRelations-PUT -S -t 60  -v alternatives:alternatives.xml criteria:criteria.xml performances:performances.xml preferences:preferences.xml intensities-of-preferences:intensities-of-preferences.xml criteria-preference-directions:criteria-preference-directions.xml parameters:parameters.xml]]></value>
+            </item>
+            <output parameterID="necessary-relations">
+                <pathElement base64_encoded="false"><![CDATA[RORUTA-NecessaryAndPossiblePreferenceRelations-1]]></pathElement>
+                <pathElement base64_encoded="false"><![CDATA[necessary-relations.xml]]></pathElement>
+            </output>
+            <output parameterID="possible-relations">
+                <pathElement base64_encoded="false"><![CDATA[RORUTA-NecessaryAndPossiblePreferenceRelations-1]]></pathElement>
+                <pathElement base64_encoded="false"><![CDATA[possible-relations.xml]]></pathElement>
+            </output>
+            <output parameterID="messages">
+                <pathElement base64_encoded="false"><![CDATA[RORUTA-NecessaryAndPossiblePreferenceRelations-1]]></pathElement>
                 <pathElement base64_encoded="false"><![CDATA[messages.xml]]></pathElement>
             </output>
         </program>

@@ -6,7 +6,7 @@ exit_value
 ------
 stdout
 ------
-axvvikWacZYUL1mq
+raMnrAWHIf28ZpmB
 messages.xml
 representative-value-function.xml
 
@@ -14,7 +14,7 @@ representative-value-function.xml
 -----
 start
 -----
-Fri Jul 08 14:29:07 CEST 2016
+Fri Jul 08 15:21:52 CEST 2016
 
 ------
 stderr
@@ -25,8 +25,8 @@ This is the web-service: RORUTA-RepresentativeValueFunction-PUT
   version 1.0
   by Pawel Rychly, 2014-2015
 **************************************************************************
-Return Ticket: axvvikWacZYUL1mq
-Request solution for problem axvvikWacZYUL1mq
+Return Ticket: raMnrAWHIf28ZpmB
+Request solution for problem raMnrAWHIf28ZpmB
 Wrote file:messages.xml
 Wrote file:representative-value-function.xml
 
@@ -70,5 +70,5 @@ $callXMCDAService RORUTA-RepresentativeValueFunction-PUT -S -t 60  -v alternativ
 ---
 end
 ---
-Fri Jul 08 14:29:11 CEST 2016
+Fri Jul 08 15:21:56 CEST 2016
 

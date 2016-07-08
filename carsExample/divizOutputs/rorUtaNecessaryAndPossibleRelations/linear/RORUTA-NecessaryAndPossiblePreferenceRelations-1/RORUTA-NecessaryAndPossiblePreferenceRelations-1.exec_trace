@@ -6,7 +6,7 @@ exit_value
 ------
 stdout
 ------
-rqjVHOZj0Y8IRZ5r
+Tcrf3h5B8QfawPFj
 messages.xml
 necessary-relations.xml
 possible-relations.xml
@@ -15,7 +15,7 @@ possible-relations.xml
 -----
 start
 -----
-Fri Jul 08 14:29:01 CEST 2016
+Fri Jul 08 15:21:46 CEST 2016
 
 ------
 stderr
@@ -26,8 +26,8 @@ This is the web-service: RORUTA-NecessaryAndPossiblePreferenceRelations-PUT
   version 1.0
   by Pawel Rychly, 2014-2015
 **************************************************************************
-Return Ticket: rqjVHOZj0Y8IRZ5r
-Request solution for problem rqjVHOZj0Y8IRZ5r
+Return Ticket: Tcrf3h5B8QfawPFj
+Request solution for problem Tcrf3h5B8QfawPFj
 Wrote file:messages.xml
 Wrote file:necessary-relations.xml
 Wrote file:possible-relations.xml
@@ -67,5 +67,5 @@ $callXMCDAService RORUTA-NecessaryAndPossiblePreferenceRelations-PUT -S -t 60  -
 ---
 end
 ---
-Fri Jul 08 14:29:07 CEST 2016
+Fri Jul 08 15:21:52 CEST 2016
 

@@ -1,88 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <result version="1">
-    <creationDate date="2016-07-08T14:20:51.326+0200">1467980451326</creationDate>
-    <date date="2016-07-08T14:21:04.057+0200">1467980464057</date>
+    <creationDate date="2016-07-08T15:24:57.539+0200">1467984297539</creationDate>
+    <date date="2016-07-08T15:25:10.475+0200">1467984310475</date>
     <workflowID>ACED0005757200135B4C6A6176612E6C616E672E4F626A6563743B90CE589F1073296C020000787000000002737200116A6176612E726D692E6467632E564D4944F8865BAFA4A56DB60200025B0004616464727400025B424C00037569647400154C6A6176612F726D692F7365727665722F5549443B7870757200025B42ACF317F8060854E002000078700000000851EF976B572F8748737200136A6176612E726D692E7365727665722E5549440F12700DBF364F12020003530005636F756E744A000474696D65490006756E6971756578708C7100000152CAA67F1ABA8898A4740023726F725574614E6563657373617279416E64506F737369626C6552656C6174696F6E73</workflowID>
-    <executionID>2016-07-08T14_20_51.263+020012</executionID>
+    <executionID>2016-07-08T15_24_57.493+020022</executionID>
     <!--The global status-->
     <status>OK</status>
     <zipFile />
     <!--The detailed status, by program
 Every value that is not made of ASCII printable characters only is base64-encoded-->
     <programs_status>
-        <program id="RORUTA-RepresentativeValueFunction-1" status="OK" start="1467980451326" end="1467980464057">
+        <program id="RORUTA-NecessaryAndPossiblePreferenceRelations-1" status="OK" start="1467984297538" end="1467984310475">
             <item key="exit_value">
                 <value base64_encoded="false"><![CDATA[0]]></value>
             </item>
             <item key="stdout">
-                <value base64_encoded="false"><![CDATA[JXHvSVHmwimQlHpa
-messages.xml
-representative-value-function.xml]]></value>
-            </item>
-            <item key="files_not_found">
-                <value base64_encoded="false" />
-            </item>
-            <item key="start">
-                <value base64_encoded="false"><![CDATA[Fri Jul 08 14:20:58 CEST 2016]]></value>
-            </item>
-            <item key="end">
-                <value base64_encoded="false"><![CDATA[Fri Jul 08 14:21:03 CEST 2016]]></value>
-            </item>
-            <item key="stderr">
-                <value base64_encoded="false"><![CDATA[**************************************************************************
-Welcome to the Decision Deck Server located at Telecom Bretagne.
-This is the web-service: RORUTA-RepresentativeValueFunction-PUT
-  version 1.0
-  by Pawel Rychly, 2014-2015
-**************************************************************************
-Return Ticket: JXHvSVHmwimQlHpa
-Request solution for problem JXHvSVHmwimQlHpa
-Wrote file:messages.xml
-Wrote file:representative-value-function.xml]]></value>
-            </item>
-            <item key="script">
-                <value base64_encoded="false"><![CDATA[setenv PYTHONUNBUFFERED 1
-set callXMCDAService="genericXMCDAService.py -U http://server-telecom-bretagne.diviz.org/soap/%s.py -n "
-
-#parameters: parameters.xml
-cat > parameters.xml <<EOF
-<?xml version="1.0" encoding="UTF-8"?>
-<xmcda:XMCDA xmlns:xmcda="http://www.decision-deck.org/2012/XMCDA-2.2.0"
-        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xsi:schemaLocation="http://www.decision-deck.org/2012/XMCDA-2.2.0 http://www.decision-deck.org/xmcda/_downloads/XMCDA-2.2.0.xsd">
-                
-                     <methodParameters>
-                         <parameter name="strict">
-                            <value>
-                                <boolean>true</boolean>
-                            </value>
-                        </parameter>
-                        <parameter name="compromise">
-                            <value>
-                                <boolean>false</boolean>
-                            </value>
-                        </parameter>
-                     </methodParameters>
-                    
-            </xmcda:XMCDA>
-EOF
-$callXMCDAService RORUTA-RepresentativeValueFunction-PUT -S -t 60  -v alternatives:alternatives.xml criteria:criteria.xml performances:performances.xml necessary-relations:necessary-relations.xml preferences:preferences.xml intensities-of-preferences:intensities-of-preferences.xml criteria-preference-directions:criteria-preference-directions.xml parameters:parameters.xml]]></value>
-            </item>
-            <output parameterID="representative-value-function">
-                <pathElement base64_encoded="false"><![CDATA[RORUTA-RepresentativeValueFunction-1]]></pathElement>
-                <pathElement base64_encoded="false"><![CDATA[representative-value-function.xml]]></pathElement>
-            </output>
-            <output parameterID="messages">
-                <pathElement base64_encoded="false"><![CDATA[RORUTA-RepresentativeValueFunction-1]]></pathElement>
-                <pathElement base64_encoded="false"><![CDATA[messages.xml]]></pathElement>
-            </output>
-        </program>
-        <program id="RORUTA-NecessaryAndPossiblePreferenceRelations-1" status="OK" start="1467980451326" end="1467980464057">
-            <item key="exit_value">
-                <value base64_encoded="false"><![CDATA[0]]></value>
-            </item>
-            <item key="stdout">
-                <value base64_encoded="false"><![CDATA[uVpAufplCgjXsivV
+                <value base64_encoded="false"><![CDATA[gdqScKwlxsoYiVSg
 messages.xml
 necessary-relations.xml
 possible-relations.xml]]></value>
@@ -91,10 +24,10 @@ possible-relations.xml]]></value>
                 <value base64_encoded="false" />
             </item>
             <item key="start">
-                <value base64_encoded="false"><![CDATA[Fri Jul 08 14:20:51 CEST 2016]]></value>
+                <value base64_encoded="false"><![CDATA[Fri Jul 08 15:24:57 CEST 2016]]></value>
             </item>
             <item key="end">
-                <value base64_encoded="false"><![CDATA[Fri Jul 08 14:20:58 CEST 2016]]></value>
+                <value base64_encoded="false"><![CDATA[Fri Jul 08 15:25:04 CEST 2016]]></value>
             </item>
             <item key="stderr">
                 <value base64_encoded="false"><![CDATA[**************************************************************************
@@ -103,8 +36,8 @@ This is the web-service: RORUTA-NecessaryAndPossiblePreferenceRelations-PUT
   version 1.0
   by Pawel Rychly, 2014-2015
 **************************************************************************
-Return Ticket: uVpAufplCgjXsivV
-Request solution for problem uVpAufplCgjXsivV
+Return Ticket: gdqScKwlxsoYiVSg
+Request solution for problem gdqScKwlxsoYiVSg
 Wrote file:messages.xml
 Wrote file:necessary-relations.xml
 Wrote file:possible-relations.xml]]></value>
@@ -142,6 +75,73 @@ $callXMCDAService RORUTA-NecessaryAndPossiblePreferenceRelations-PUT -S -t 60  -
             </output>
             <output parameterID="messages">
                 <pathElement base64_encoded="false"><![CDATA[RORUTA-NecessaryAndPossiblePreferenceRelations-1]]></pathElement>
+                <pathElement base64_encoded="false"><![CDATA[messages.xml]]></pathElement>
+            </output>
+        </program>
+        <program id="RORUTA-RepresentativeValueFunction-1" status="OK" start="1467984297539" end="1467984310475">
+            <item key="exit_value">
+                <value base64_encoded="false"><![CDATA[0]]></value>
+            </item>
+            <item key="stdout">
+                <value base64_encoded="false"><![CDATA[IzshQg2SvD8tjIZ3
+messages.xml
+representative-value-function.xml]]></value>
+            </item>
+            <item key="files_not_found">
+                <value base64_encoded="false" />
+            </item>
+            <item key="start">
+                <value base64_encoded="false"><![CDATA[Fri Jul 08 15:25:04 CEST 2016]]></value>
+            </item>
+            <item key="end">
+                <value base64_encoded="false"><![CDATA[Fri Jul 08 15:25:09 CEST 2016]]></value>
+            </item>
+            <item key="stderr">
+                <value base64_encoded="false"><![CDATA[**************************************************************************
+Welcome to the Decision Deck Server located at Telecom Bretagne.
+This is the web-service: RORUTA-RepresentativeValueFunction-PUT
+  version 1.0
+  by Pawel Rychly, 2014-2015
+**************************************************************************
+Return Ticket: IzshQg2SvD8tjIZ3
+Request solution for problem IzshQg2SvD8tjIZ3
+Wrote file:messages.xml
+Wrote file:representative-value-function.xml]]></value>
+            </item>
+            <item key="script">
+                <value base64_encoded="false"><![CDATA[setenv PYTHONUNBUFFERED 1
+set callXMCDAService="genericXMCDAService.py -U http://server-telecom-bretagne.diviz.org/soap/%s.py -n "
+
+#parameters: parameters.xml
+cat > parameters.xml <<EOF
+<?xml version="1.0" encoding="UTF-8"?>
+<xmcda:XMCDA xmlns:xmcda="http://www.decision-deck.org/2012/XMCDA-2.2.0"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.decision-deck.org/2012/XMCDA-2.2.0 http://www.decision-deck.org/xmcda/_downloads/XMCDA-2.2.0.xsd">
+                
+                     <methodParameters>
+                         <parameter name="strict">
+                            <value>
+                                <boolean>true</boolean>
+                            </value>
+                        </parameter>
+                        <parameter name="compromise">
+                            <value>
+                                <boolean>false</boolean>
+                            </value>
+                        </parameter>
+                     </methodParameters>
+                    
+            </xmcda:XMCDA>
+EOF
+$callXMCDAService RORUTA-RepresentativeValueFunction-PUT -S -t 60  -v alternatives:alternatives.xml criteria:criteria.xml performances:performances.xml necessary-relations:necessary-relations.xml preferences:preferences.xml intensities-of-preferences:intensities-of-preferences.xml criteria-preference-directions:criteria-preference-directions.xml parameters:parameters.xml]]></value>
+            </item>
+            <output parameterID="representative-value-function">
+                <pathElement base64_encoded="false"><![CDATA[RORUTA-RepresentativeValueFunction-1]]></pathElement>
+                <pathElement base64_encoded="false"><![CDATA[representative-value-function.xml]]></pathElement>
+            </output>
+            <output parameterID="messages">
+                <pathElement base64_encoded="false"><![CDATA[RORUTA-RepresentativeValueFunction-1]]></pathElement>
                 <pathElement base64_encoded="false"><![CDATA[messages.xml]]></pathElement>
             </output>
         </program>
