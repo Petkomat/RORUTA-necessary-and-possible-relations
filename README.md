@@ -59,10 +59,10 @@ divizWFfolder/
 ````
 It is necessary for the diviz workflow with the name `projectName`, to have the following widgets:
 
-- `RORUTA-NecessaryAndPossiblePreferenceRelations` (for the computation of relations)
-- `RORUTA-RepresentativeValueFunction` (for the most representative utility function)
+- `RORUTA-NecessaryAndPossiblePreferenceRelations` (for the computation of relations),
+- `RORUTA-RepresentativeValueFunction` (for the most representative utility function),
 
-![Workflow structure](https://github.com/Petkomat/RORUTA-necessary-and-possible-relations/blob/master/workflow.pdf "Diviz workflow")
+see the ![workflow structure](https://github.com/Petkomat/RORUTA-necessary-and-possible-relations/blob/master/workflow.pdf "Diviz workflow").
 
 
 ##### Defining relations
