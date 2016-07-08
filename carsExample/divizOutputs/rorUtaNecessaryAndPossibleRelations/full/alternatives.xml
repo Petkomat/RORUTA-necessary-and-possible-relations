@@ -1,0 +1,13 @@
+<xmcda:XMCDA xmlns:xmcda="http://www.decision-deck.org/2009/XMCDA-2.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.decision-deck.org/2009/XMCDA-2.0.0 file:/home/pat/Documents/currentResearch/DecisionDeck/svn-DecisionDeck/XMCDA/XMCDA-2.0.0.xsd">
+    <alternatives>
+        <alternative id="a0" name="Audi A3 1.6 TDI 110hp Ambiente 2014 - 2016"/>
+        <alternative id="a1" name="Citroen C3 1.4 HDi 70 Ligne Business 2010 - 2011"/>
+        <alternative id="a2" name="Fiat 500 1.2 Naked 2008 - 2009"/>
+        <alternative id="a3" name="Mazda CX-5 SkyActiv-D 150 Skylease GT 2015 - 2016"/>
+        <alternative id="a4" name="Peugeot 308 SW Active 1.6 VTi 2011 - 2013"/>
+        <alternative id="a5" name="Renault Twizy Color 2012 - 2016"/>
+        <alternative id="a6" name="Skoda Fabia Sedan 1.4 16V 75hp Elegance 2004 - 2006"/>
+        <alternative id="a7" name="Toyota Yaris 1.0 VVT-i Acces 2012 - 2014"/>
+        <alternative id="a8" name="Volkswagen Sharan 2.0 Comfortline 2000 - 2008"/>
+    </alternatives>
+</xmcda:XMCDA>

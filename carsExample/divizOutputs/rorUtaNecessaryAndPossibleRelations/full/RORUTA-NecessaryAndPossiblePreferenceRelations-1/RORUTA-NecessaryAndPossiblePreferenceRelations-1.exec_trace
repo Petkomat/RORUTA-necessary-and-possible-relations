@@ -1,0 +1,71 @@
+----------
+exit_value
+----------
+0
+
+------
+stdout
+------
+uVpAufplCgjXsivV
+messages.xml
+necessary-relations.xml
+possible-relations.xml
+
+
+-----
+start
+-----
+Fri Jul 08 14:20:51 CEST 2016
+
+------
+stderr
+------
+**************************************************************************
+Welcome to the Decision Deck Server located at Telecom Bretagne.
+This is the web-service: RORUTA-NecessaryAndPossiblePreferenceRelations-PUT
+  version 1.0
+  by Pawel Rychly, 2014-2015
+**************************************************************************
+Return Ticket: uVpAufplCgjXsivV
+Request solution for problem uVpAufplCgjXsivV
+Wrote file:messages.xml
+Wrote file:necessary-relations.xml
+Wrote file:possible-relations.xml
+
+
+---------------
+files_not_found
+---------------
+
+
+------
+script
+------
+setenv PYTHONUNBUFFERED 1
+set callXMCDAService="genericXMCDAService.py -U http://server-telecom-bretagne.diviz.org/soap/%s.py -n "
+
+#parameters: parameters.xml
+cat > parameters.xml <<EOF
+<?xml version="1.0" encoding="UTF-8"?>
+<xmcda:XMCDA xmlns:xmcda="http://www.decision-deck.org/2012/XMCDA-2.2.0"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.decision-deck.org/2012/XMCDA-2.2.0 http://www.decision-deck.org/xmcda/_downloads/XMCDA-2.2.0.xsd">
+                
+                     <methodParameters>
+						<parameter name="strict">
+                            <value>
+                                <boolean>true</boolean>
+                            </value>
+                        </parameter>
+					</methodParameters>
+                    
+            </xmcda:XMCDA>
+EOF
+$callXMCDAService RORUTA-NecessaryAndPossiblePreferenceRelations-PUT -S -t 60  -v alternatives:alternatives.xml criteria:criteria.xml performances:performances.xml preferences:preferences.xml intensities-of-preferences:intensities-of-preferences.xml criteria-preference-directions:criteria-preference-directions.xml parameters:parameters.xml
+
+
+---
+end
+---
+Fri Jul 08 14:20:58 CEST 2016
+

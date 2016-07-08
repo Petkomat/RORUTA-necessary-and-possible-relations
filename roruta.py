@@ -4,7 +4,7 @@ from functools import partial
 from re import search
 from tkinter import *
 import matplotlib.pyplot as plt
-from random import sample
+from random import random, seed
 
 
 # set the size of picture and font for pyplot
@@ -78,7 +78,8 @@ def createCSVPerformanceTable():
             alreadyExists = True
             break
     if alreadyExists:
-        print("The file already exists. This call of createCSVPerformanceTable will not have any effect.")
+        print("The file that contains performance table already exists. This note is the only effect of this call of "
+              "createCSVPerformanceTable.")
     else:
         for x in myAlternatives:
             populatePerfTableDict(x)
@@ -474,18 +475,20 @@ def latestRun(folder):
     return max(files)
 
 
-def drawRelations(alter, divizWorkflowFolder, necessaryRels, file=""):
+def drawRelations(alter, divizWorkflowFolder, necessaryRels, divizRun=""):
     """
     Draws the relations. Green / red coloured field in the intersection of i-th row and j-th column, means that
     alternative_i R alternative_j, where R is discovered / user defined relation.
     (For all feasible models, user defined relations are subset of discovered relations.
-    It the model is infeasible, then the output xml are non-existent, hence there is no possible
+    If the model is infeasible, then the output xmls are non-existent, hence there is no possible
     source of confusion.)
 
-    :param alter: list of names of alternatives
-    :param divizWorkflowFolder: root folder of a workflow, e.g., 'C:/Users/user/diviz_workspace/rorUtaNecessaryAndPossibleRelations'
-    :param necessaryRels: bool, if necessaryRels, then we draw necessary relations, else we draw possible-ones
-    :param file: output file of the workflow, if file = '', then the latest output file is chosen
+    :param alter: list of names of alternatives, e.g., ['Volvo', 'Skoda', ...] and not ['a2', 'a0', ...]
+    :param divizWorkflowFolder: root folder of a workflow, where the outputs are stored, e.g.,
+    'C:/Users/user/diviz_workspace/rorUtaNecessaryAndPossibleRelations'
+    :param necessaryRels: bool, if necessaryRels, then we draw necessary relations, otherwise we draw possible-ones
+    :param divizRun: name of the output folder of the workflow, if divizRun = '',
+    then the latest output folder is chosen
     :return: None
     """
 
@@ -509,7 +512,7 @@ def drawRelations(alter, divizWorkflowFolder, necessaryRels, file=""):
             return "black"
 
     #reading
-    run = "{}/{}".format(divizWorkflowFolder, file if file != "" else latestRun(divizWorkflowFolder))
+    run = "{}/{}".format(divizWorkflowFolder, divizRun if divizRun != "" else latestRun(divizWorkflowFolder))
     outputRelationsFolder = "{}/{}".format(run, "RORUTA-NecessaryAndPossiblePreferenceRelations-1")
 
     dmPref = readRelations("{}/{}".format(run, "preferences.xml"), True)  # decision maker preferences
@@ -544,7 +547,7 @@ def drawRelations(alter, divizWorkflowFolder, necessaryRels, file=""):
     window.mainloop()
 
 
-def drawUtilityFunction(divizWorkflowFolder, criteriaNames, file = "", dimGraphs=(3,3)):
+def drawUtilityFunction(divizWorkflowFolder, criteriaNames, file="", dimGraphs=(3, 3)):
     """
     Draws chosen most representative utility function and returns its values.
 
@@ -603,22 +606,26 @@ def drawUtilityFunction(divizWorkflowFolder, criteriaNames, file = "", dimGraphs
     return functionDict
 
 
+##################################################################################
+# User defined relations                                                         #
+##################################################################################
+
+
 def defineStrongRelations(fileRels):
     """
     Reads a file with user defined strong relations.
 
     :param fileRels: pathToMyRels/myRels, where myRels is a file with user defined strict relations, for example
-    a3 > a4
-    a1 > a3
+    a2 > a4
+    a0 > a2
     a42 > a12
-    (if user defined 3 relations). The id numbers should be >= 1. (If one wants to use zero based counting,
-    just modify the pomo function: change int(x) - 1 to int(x)). The alternatives should be indexed with respect to
+    (if user defined 3 relations). The id numbers should be >= 0. The alternatives should be indexed with respect to
     their order in the list myAlternatives.
-    :return: List of pairs [[2,3],[0,2], [41, 11]] (if we follow the same example).
+    :return: List of pairs [[2,3],[0,2], [42, 12]] (if we follow the same example).
     """
 
     def pomo(x):
-        return "a{}".format(int(x) - 1)
+        return "a{}".format(x)
     prefList = []
     with open(fileRels, "r") as f:
         for x in f:
@@ -626,18 +633,21 @@ def defineStrongRelations(fileRels):
             if line:
                 a = search("a([0-9]+) > a([0-9]+)", line)
                 prefList.append([a.group(1), a.group(2)])
-    prefList = [[pomo(x), pomo(y)] for [x,y] in prefList]
+    prefList = [[pomo(x), pomo(y)] for [x, y] in prefList]
     return prefList
 
 
-def createRandomSubsampleOfAllRelations(linearOrder, size, randomSeed=12345):
+def createRandomSubsampleOfAllRelations(linearOrder, size, file, randomSeed=12345):
     """
-
-    :param linearOrder: [indexOfTheBestAlternative, indexOfSecondBestAlternative, ...], where indices >= 0.
+    We sample uniformly at random some relations and save them to file.
+    :param linearOrder: [indexOfTheBestAlternative, indexOfSecondBestAlternative, ...], where indices >= 0 and they
+    correspond to the myAlternatives.
     :param size: the size of the random sample
     :param randomSeed: randomSeed used
+    :param file: The subsample will be saved to inputFolder/preferences/file.pref
     :return:
     """
+    seed(randomSeed)
     indices = {x: i for i, x in enumerate(linearOrder)}
     n = len(linearOrder)
     maxPairs = n * (n + 1) // 2
@@ -645,16 +655,42 @@ def createRandomSubsampleOfAllRelations(linearOrder, size, randomSeed=12345):
         raise Exception("size = {} breaks the assumption 0 <= size <= #different pairs.".format(size))
     subsample = set()
     while len(subsample) < size:
-        subsample.add(())
+        ind1 = int(random() * n)
+        ind2 = int(random() * n)
+        while ind2 == ind1:
+            ind2 = int(random() * n)
+        ind1, ind2 = (ind1, ind2) if ind1 < ind2 else (ind2, ind1)
+        subsample.add((linearOrder[ind1], linearOrder[ind2]))
+    with open("{}/preferences/{}.pref".format(inputFolder, file), "w") as f:
+        for (alt1, alt2) in subsample:
+            better = max(alt1, alt2, key=lambda x: -indices[x])
+            worse = min(alt1, alt2, key=lambda x: -indices[x])
+            print("a{} > a{}".format(better, worse), file=f)
 
+
+def createLinearRelations(linearOrder, file):
+    """
+    From the list linearOrder = [indexOfTheBestAlternative, indexOfSecondBestAlternative, ...] of length n,
+    we create a file that contains n - 1 lines:
+    a<indexOfTheBestAlternative> > a<indexOfSecondBestAlternative>
+    ...
+    a<indexOf(n-1)BestAlternative> > a<indexOf(n)BestAlternative>
+
+    :param linearOrder:
+    :param file: The relations will be saved to inputFolder/preferences/file.pref
+    :return:
+    """
+    with open("{}/preferences/{}.pref".format(inputFolder, file), "w") as f:
+        for i in range(len(linearOrder) - 1):
+            print("a{} > a{}".format(linearOrder[i], linearOrder[i + 1]), file=f)
 
 
 #############################################################################################
-# Examples                                                                                  #
+# Example                                                                                   #
 #############################################################################################
 
 # DEFINE NECESSARY FOLDERS and a FILE
-divizWFfolder = "C:/Users/matejp/diviz_workspace/rorUtaNecessaryAndPossibleRelations"
+divizWFfolder = "./carsExample/divizOutputs/rorUtaNecessaryAndPossibleRelations"
 performanceTableCSV = "performances.csv"
 inputFolder = "./carsExample/myInputs"
 myProjects = "myWorkflows"
@@ -663,7 +699,9 @@ projectName = "rorUtaNecessaryAndPossibleRelations"
 divizWFfolder = toSlash(divizWFfolder)
 inputFolder = toSlash(inputFolder)
 
+
 # DEFINE THE PROBLEM
+alternative = "car"                                                                     # type of the alternatives
 myAlternatives = sorted(["Audi A3 1.6 TDI 110hp Ambiente 2014 - 2016",                  # alternatives
                          "Mazda CX-5 SkyActiv-D 150 Skylease GT 2015 - 2016",
                          "Citroen C3 1.4 HDi 70 Ligne Business 2010 - 2011",
@@ -673,7 +711,6 @@ myAlternatives = sorted(["Audi A3 1.6 TDI 110hp Ambiente 2014 - 2016",          
                          "Toyota Yaris 1.0 VVT-i Acces 2012 - 2014",
                          "Volkswagen Sharan 2.0 Comfortline 2000 - 2008",
                          "Skoda Fabia Sedan 1.4 16V 75hp Elegance 2004 - 2006"])
-alternative = "car"
 criteriaNames = ["price",                                                               # criteria
                  "#doors",
                  "#seats",
@@ -681,44 +718,41 @@ criteriaNames = ["price",                                                       
                  "maxEnginePower",
                  "fuelConsumption",
                  "releaseDate",
-                 "crashTest"]   
-numberTypes = [int if "#" in x or "Date" in x or "crashTest" in x else float for x in criteriaNames]  # types of criteria: int of float; needed for nicer/cleaner representation
+                 "crashTest"]
+numberTypes = [int if "#" in x or "Date" in x or "crashTest" in x else float for x in criteriaNames]  # types of criteria: int or float; needed for nicer/cleaner representation
 
 # CREATE A PERFORMANCE TABLE IF NECESSARY, AND READ IT
 performanceTableDict = {}
 createCSVPerformanceTable()
-alt, criteria, perf = readPerformanceCSV()  
+alt, criteria, perf = readPerformanceCSV()
 
 # CREATE XML SETTINGS FILES:
 alternativesXML(alt)                                    # alternatives
 criteriaXML(criteria)                                   # criteria
 perfTableXML(alt, criteria, perf)                       # performance table
 
-variants = ["linearna",                                 # names of folders whith some user defined preferences
-            "nakljucnaTretjina",                        # in .pref files
-            "full",
-            "deterministicnaPolovica",
-            "linearnaBolje",
-            "linearna2"]
+variants = ["linear",                                 # names of folders whith some user defined preferences
+            "random12",                               # in .pref files
+            "full"]
+ind = 1
 
-strong = []                                             # [["a0", "a8"],["a1","a2"],["a3", "a8"],["a6","a7"],["a1","a0"],["a4","a3"],["a2","a4"],["a5","a8"]][:4]
+strong = []                                             # [["a0", "a8"],["a1","a2"],["a3", "a8"],["a6","a7"],["a1","a0"],["a4","a3"],["a2","a4"],["a5","a8"]]
 weak = []                                               # [["a0", "a1"]]#[["a3", "a0"]]
-indif = []                                              # [["a2","a7"],["a7", "a2"],["a1","a6"],["a6","a1"],["a5","a6"],["a6","a5"]][:0]#[["a6","a7"],["a7","a6"]]#[["a1" ,"a2"]]#[["a1", "a4"],["a8","a0"]]
-strong = defineStrongRelations("{}/preferences/{}".format(inputFolder, "{}.pref".format(variants[2]))) #user-defined strong relations
+indif = []                                              # [["a2","a7"],["a7", "a2"],["a1","a6"],["a6","a1"],["a5","a6"],["a6","a5"]][:0]#[["a6","a7"],["a7","a6"]]#[["a1" ,"a2"]]
+strong = defineStrongRelations("{}/preferences/{}".format(inputFolder, "{}.pref".format(variants[ind])))  # user-defined strong relations
 preferencesXML([strong, weak, indif])                   # preferences
 
 directions = [1, 0, 0, 0, 0, 1, 0, 0]
 criteriaDirectXML(directions)                           # directions of criteria
-                
+
 strongInt = []                                          # [[["a3", "a4"],["a7", "a8"]]]#[[["a0", "a1"],["a4", "a5"]]]#[["a0", "a1"], ["a0", "a2"]]
 weakInt = []                                            # [["a0", "a1"]]#[["a3", "a0"]]
 indifInt = []                                           # [[["a6","a7"],["a7","a6"]]]#[["a1" ,"a2"]]#[["a1", "a4"],["a8","a0"]]
 intensitiesOfPrefXML([strongInt, weakInt, indifInt])    # intensities of preferences
-    
+
 
 # PLOT THE RELATIONS AND MOST REPRESENTATIVE UTILITY FUNCTION
-ind = 2
-drawRelations(alt, divizWFfolder, True, file=variants[ind])
-drawRelations(alt, divizWFfolder, False, file=variants[ind])
+drawRelations(alt, divizWFfolder, True, divizRun=variants[ind])             # here, we have renamed the diviz run, so
+drawRelations(alt, divizWFfolder, False, divizRun=variants[ind])            # that it equals the name of the variant
+dicty = drawUtilityFunction(divizWFfolder, criteria, file=variants[ind])    # of user defined preferecnes.
 
-dicty = drawUtilityFunction(divizWFfolder, criteria, file=variants[ind])

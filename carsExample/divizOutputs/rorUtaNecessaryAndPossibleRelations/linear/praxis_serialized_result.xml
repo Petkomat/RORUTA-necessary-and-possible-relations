@@ -1,0 +1,333 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<result version="1">
+    <creationDate date="2016-07-08T14:29:01.117+0200">1467980941117</creationDate>
+    <date date="2016-07-08T14:29:12.822+0200">1467980952822</date>
+    <workflowID>ACED0005757200135B4C6A6176612E6C616E672E4F626A6563743B90CE589F1073296C020000787000000002737200116A6176612E726D692E6467632E564D4944F8865BAFA4A56DB60200025B0004616464727400025B424C00037569647400154C6A6176612F726D692F7365727665722F5549443B7870757200025B42ACF317F8060854E002000078700000000851EF976B572F8748737200136A6176612E726D692E7365727665722E5549440F12700DBF364F12020003530005636F756E744A000474696D65490006756E6971756578708C7100000152CAA67F1ABA8898A4740023726F725574614E6563657373617279416E64506F737369626C6552656C6174696F6E73</workflowID>
+    <executionID>2016-07-08T14_29_01.063+020014</executionID>
+    <!--The global status-->
+    <status>OK</status>
+    <zipFile />
+    <!--The detailed status, by program
+Every value that is not made of ASCII printable characters only is base64-encoded-->
+    <programs_status>
+        <program id="RORUTA-RepresentativeValueFunction-1" status="OK" start="1467980941117" end="1467980952822">
+            <item key="exit_value">
+                <value base64_encoded="false"><![CDATA[0]]></value>
+            </item>
+            <item key="stdout">
+                <value base64_encoded="false"><![CDATA[axvvikWacZYUL1mq
+messages.xml
+representative-value-function.xml]]></value>
+            </item>
+            <item key="files_not_found">
+                <value base64_encoded="false" />
+            </item>
+            <item key="start">
+                <value base64_encoded="false"><![CDATA[Fri Jul 08 14:29:07 CEST 2016]]></value>
+            </item>
+            <item key="end">
+                <value base64_encoded="false"><![CDATA[Fri Jul 08 14:29:11 CEST 2016]]></value>
+            </item>
+            <item key="stderr">
+                <value base64_encoded="false"><![CDATA[**************************************************************************
+Welcome to the Decision Deck Server located at Telecom Bretagne.
+This is the web-service: RORUTA-RepresentativeValueFunction-PUT
+  version 1.0
+  by Pawel Rychly, 2014-2015
+**************************************************************************
+Return Ticket: axvvikWacZYUL1mq
+Request solution for problem axvvikWacZYUL1mq
+Wrote file:messages.xml
+Wrote file:representative-value-function.xml]]></value>
+            </item>
+            <item key="script">
+                <value base64_encoded="false"><![CDATA[setenv PYTHONUNBUFFERED 1
+set callXMCDAService="genericXMCDAService.py -U http://server-telecom-bretagne.diviz.org/soap/%s.py -n "
+
+#parameters: parameters.xml
+cat > parameters.xml <<EOF
+<?xml version="1.0" encoding="UTF-8"?>
+<xmcda:XMCDA xmlns:xmcda="http://www.decision-deck.org/2012/XMCDA-2.2.0"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.decision-deck.org/2012/XMCDA-2.2.0 http://www.decision-deck.org/xmcda/_downloads/XMCDA-2.2.0.xsd">
+                
+                     <methodParameters>
+                         <parameter name="strict">
+                            <value>
+                                <boolean>true</boolean>
+                            </value>
+                        </parameter>
+                        <parameter name="compromise">
+                            <value>
+                                <boolean>false</boolean>
+                            </value>
+                        </parameter>
+                     </methodParameters>
+                    
+            </xmcda:XMCDA>
+EOF
+$callXMCDAService RORUTA-RepresentativeValueFunction-PUT -S -t 60  -v alternatives:alternatives.xml criteria:criteria.xml performances:performances.xml necessary-relations:necessary-relations.xml preferences:preferences.xml intensities-of-preferences:intensities-of-preferences.xml criteria-preference-directions:criteria-preference-directions.xml parameters:parameters.xml]]></value>
+            </item>
+            <output parameterID="representative-value-function">
+                <pathElement base64_encoded="false"><![CDATA[RORUTA-RepresentativeValueFunction-1]]></pathElement>
+                <pathElement base64_encoded="false"><![CDATA[representative-value-function.xml]]></pathElement>
+            </output>
+            <output parameterID="messages">
+                <pathElement base64_encoded="false"><![CDATA[RORUTA-RepresentativeValueFunction-1]]></pathElement>
+                <pathElement base64_encoded="false"><![CDATA[messages.xml]]></pathElement>
+            </output>
+        </program>
+        <program id="RORUTA-NecessaryAndPossiblePreferenceRelations-1" status="OK" start="1467980941117" end="1467980952822">
+            <item key="exit_value">
+                <value base64_encoded="false"><![CDATA[0]]></value>
+            </item>
+            <item key="stdout">
+                <value base64_encoded="false"><![CDATA[rqjVHOZj0Y8IRZ5r
+messages.xml
+necessary-relations.xml
+possible-relations.xml]]></value>
+            </item>
+            <item key="files_not_found">
+                <value base64_encoded="false" />
+            </item>
+            <item key="start">
+                <value base64_encoded="false"><![CDATA[Fri Jul 08 14:29:01 CEST 2016]]></value>
+            </item>
+            <item key="end">
+                <value base64_encoded="false"><![CDATA[Fri Jul 08 14:29:07 CEST 2016]]></value>
+            </item>
+            <item key="stderr">
+                <value base64_encoded="false"><![CDATA[**************************************************************************
+Welcome to the Decision Deck Server located at Telecom Bretagne.
+This is the web-service: RORUTA-NecessaryAndPossiblePreferenceRelations-PUT
+  version 1.0
+  by Pawel Rychly, 2014-2015
+**************************************************************************
+Return Ticket: rqjVHOZj0Y8IRZ5r
+Request solution for problem rqjVHOZj0Y8IRZ5r
+Wrote file:messages.xml
+Wrote file:necessary-relations.xml
+Wrote file:possible-relations.xml]]></value>
+            </item>
+            <item key="script">
+                <value base64_encoded="false"><![CDATA[setenv PYTHONUNBUFFERED 1
+set callXMCDAService="genericXMCDAService.py -U http://server-telecom-bretagne.diviz.org/soap/%s.py -n "
+
+#parameters: parameters.xml
+cat > parameters.xml <<EOF
+<?xml version="1.0" encoding="UTF-8"?>
+<xmcda:XMCDA xmlns:xmcda="http://www.decision-deck.org/2012/XMCDA-2.2.0"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.decision-deck.org/2012/XMCDA-2.2.0 http://www.decision-deck.org/xmcda/_downloads/XMCDA-2.2.0.xsd">
+                
+                     <methodParameters>
+						<parameter name="strict">
+                            <value>
+                                <boolean>true</boolean>
+                            </value>
+                        </parameter>
+					</methodParameters>
+                    
+            </xmcda:XMCDA>
+EOF
+$callXMCDAService RORUTA-NecessaryAndPossiblePreferenceRelations-PUT -S -t 60  -v alternatives:alternatives.xml criteria:criteria.xml performances:performances.xml preferences:preferences.xml intensities-of-preferences:intensities-of-preferences.xml criteria-preference-directions:criteria-preference-directions.xml parameters:parameters.xml]]></value>
+            </item>
+            <output parameterID="necessary-relations">
+                <pathElement base64_encoded="false"><![CDATA[RORUTA-NecessaryAndPossiblePreferenceRelations-1]]></pathElement>
+                <pathElement base64_encoded="false"><![CDATA[necessary-relations.xml]]></pathElement>
+            </output>
+            <output parameterID="possible-relations">
+                <pathElement base64_encoded="false"><![CDATA[RORUTA-NecessaryAndPossiblePreferenceRelations-1]]></pathElement>
+                <pathElement base64_encoded="false"><![CDATA[possible-relations.xml]]></pathElement>
+            </output>
+            <output parameterID="messages">
+                <pathElement base64_encoded="false"><![CDATA[RORUTA-NecessaryAndPossiblePreferenceRelations-1]]></pathElement>
+                <pathElement base64_encoded="false"><![CDATA[messages.xml]]></pathElement>
+            </output>
+        </program>
+    </programs_status>
+    <!--The executed workflow corresponding to this result (base64-encoded if needed)-->
+    <workflow><![CDATA[<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE workflow PUBLIC "-//Telecom Bretagne//DTD XML Praxis Workflow 3.0//EN" "http://perso.telecom-bretagne.eu/~bigaret/praxis/dtd/workflow_3.0.dtd">
+
+<workflow>
+    <id>ACED0005757200135B4C6A6176612E6C616E672E4F626A6563743B90CE589F1073296C020000787000000002737200116A6176612E726D692E6467632E564D4944F8865BAFA4A56DB60200025B0004616464727400025B424C00037569647400154C6A6176612F726D692F7365727665722F5549443B7870757200025B42ACF317F8060854E002000078700000000851EF976B572F8748737200136A6176612E726D692E7365727665722E5549440F12700DBF364F12020003530005636F756E744A000474696D65490006756E6971756578708C7100000152CAA67F1ABA8898A4740023726F725574614E6563657373617279416E64506F737369626C6552656C6174696F6E73</id>
+    <name>rorUtaNecessaryAndPossibleRelations</name>
+    <user>69c377f06762a4ea_184a38bf_152ca9423dc_-8000</user>
+    <inputs>
+        <input type="file" x="50" y="100" name="" id="0">
+            <infile>alternatives.xml</infile>
+        </input>
+        <input type="file" x="50" y="175" name="" id="1">
+            <infile>criteria.xml</infile>
+        </input>
+        <input type="file" x="50" y="250" name="" id="2">
+            <infile>performanceTable.xml</infile>
+        </input>
+        <input type="file" x="50" y="325" name="" id="3">
+            <infile>preferences.xml</infile>
+        </input>
+        <input type="file" x="50" y="475" name="" id="4">
+            <infile>criteriaPreferenceDirections.xml</infile>
+        </input>
+        <input type="file" x="50" y="400" name="" id="5">
+            <infile>intensitiesOfPref.xml</infile>
+        </input>
+    </inputs>
+    <programs>
+        <program idref="PUT___RORUTA-NecessaryAndPossiblePreferenceRelations___1.0" x="275" y="75" info="PUT RORUTA-NecessaryAndPossiblePreferenceRelations 1.0" id="RORUTA-NecessaryAndPossiblePreferenceRelations-1">
+            <parameter idref="alternatives">
+                <data input_id="0" />
+            </parameter>
+            <parameter idref="criteria">
+                <data input_id="1" />
+            </parameter>
+            <parameter idref="performances">
+                <data input_id="2" />
+            </parameter>
+            <parameter idref="preferences">
+                <data input_id="3" />
+            </parameter>
+            <parameter idref="preferences-dep">
+                <info name="Use preferences as input?" value="1" />
+                <data>1</data>
+            </parameter>
+            <parameter idref="intensities-of-preferences">
+                <data input_id="5" />
+            </parameter>
+            <parameter idref="intensities-of-preferences-dep">
+                <info name="Use intensities-of-preferences as input?" value="1" />
+                <data>1</data>
+            </parameter>
+            <parameter idref="rank-related-requirements">
+                <data />
+            </parameter>
+            <parameter idref="rank-related-requirements-dep">
+                <info name="Use rank-related-requirements as input?" value="0" />
+                <data>0</data>
+            </parameter>
+            <parameter idref="characteristic-points">
+                <data />
+            </parameter>
+            <parameter idref="characteristic-points-dep">
+                <info name="Use characteristic points as input?" value="0" />
+                <data>0</data>
+            </parameter>
+            <parameter idref="criteria-preference-directions">
+                <data input_id="4" />
+            </parameter>
+            <parameter idref="criteria-preference-directions-dep">
+                <info name="Use criteria preference directions as input?" value="1" />
+                <data>1</data>
+            </parameter>
+            <parameter idref="parameters">
+                <data />
+            </parameter>
+            <parameter idref="parameters-use-file-dep">
+                <info name="Supply parameters as a file?" value="0" />
+                <data>0</data>
+            </parameter>
+            <parameter idref="parameters-gui-value-placeholder-1">
+                <info name="Use strictly increasing value functions?" value="1" />
+                <data>1</data>
+            </parameter>
+            <parameter idref="necessary-relations">
+                <data>RORUTA-NecessaryAndPossiblePreferenceRelations-1.necessary-relations</data>
+            </parameter>
+            <parameter idref="possible-relations">
+                <data>RORUTA-NecessaryAndPossiblePreferenceRelations-1.possible-relations</data>
+            </parameter>
+            <parameter idref="messages">
+                <data>RORUTA-NecessaryAndPossiblePreferenceRelations-1.messages</data>
+            </parameter>
+            <parameter idref="TIMEOUT">
+                <info name="Timeout? (0 for no timeout)" value="60" />
+                <data>60</data>
+            </parameter>
+            <parameter idref="VERBOSE">
+                <info name="Verbose mode" value="Moderately verbose" />
+                <data>T2</data>
+            </parameter>
+        </program>
+        <program idref="PUT___RORUTA-RepresentativeValueFunction___1.0" x="700" y="275" info="PUT RORUTA-RepresentativeValueFunction 1.0" id="RORUTA-RepresentativeValueFunction-1">
+            <parameter idref="alternatives">
+                <data input_id="0" />
+            </parameter>
+            <parameter idref="criteria">
+                <data input_id="1" />
+            </parameter>
+            <parameter idref="performances">
+                <data input_id="2" />
+            </parameter>
+            <parameter idref="necessary-relations">
+                <data>RORUTA-NecessaryAndPossiblePreferenceRelations-1.necessary-relations</data>
+            </parameter>
+            <parameter idref="preferences">
+                <data input_id="3" />
+            </parameter>
+            <parameter idref="preferences-dep">
+                <info name="Use preferences as input?" value="1" />
+                <data>1</data>
+            </parameter>
+            <parameter idref="intensities-of-preferences">
+                <data input_id="5" />
+            </parameter>
+            <parameter idref="intensities-of-preferences-dep">
+                <info name="Use intensities-of-preferences as input?" value="1" />
+                <data>1</data>
+            </parameter>
+            <parameter idref="rank-related-requirements">
+                <data />
+            </parameter>
+            <parameter idref="rank-related-requirements-dep">
+                <info name="Use rank-related-requirements as input?" value="0" />
+                <data>0</data>
+            </parameter>
+            <parameter idref="characteristic-points">
+                <data />
+            </parameter>
+            <parameter idref="characteristic-points-dep">
+                <info name="Use characteristic points as input?" value="0" />
+                <data>0</data>
+            </parameter>
+            <parameter idref="criteria-preference-directions">
+                <data input_id="4" />
+            </parameter>
+            <parameter idref="criteria-preference-directions-dep">
+                <info name="Use criteria preference directions as input?" value="1" />
+                <data>1</data>
+            </parameter>
+            <parameter idref="parameters">
+                <data />
+            </parameter>
+            <parameter idref="parameters-use-file-dep">
+                <info name="Supply parameters as a file?" value="0" />
+                <data>0</data>
+            </parameter>
+            <parameter idref="parameters-gui-value-placeholder-1">
+                <info name="Use strictly increasing value functions?" value="1" />
+                <data>1</data>
+            </parameter>
+            <parameter idref="parameters-gui-value-placeholder-2">
+                <info name="Use a compromise method?" value="0" />
+                <data>0</data>
+            </parameter>
+            <parameter idref="representative-value-function">
+                <data>RORUTA-RepresentativeValueFunction-1.representative-value-function</data>
+            </parameter>
+            <parameter idref="messages">
+                <data>RORUTA-RepresentativeValueFunction-1.messages</data>
+            </parameter>
+            <parameter idref="TIMEOUT">
+                <info name="Timeout? (0 for no timeout)" value="60" />
+                <data>60</data>
+            </parameter>
+            <parameter idref="VERBOSE">
+                <info name="Verbose mode" value="Moderately verbose" />
+                <data>T2</data>
+            </parameter>
+        </program>
+    </programs>
+</workflow>]]></workflow>
+</result>
+
