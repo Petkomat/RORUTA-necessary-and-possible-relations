@@ -8,7 +8,7 @@ from random import random, seed
 
 
 # set the size of picture and font for pyplot
-plt.rcParams['figure.figsize'] = 20, 10
+plt.rcParams['figure.figsize'] = 10, 20
 plt.rcParams.update({'font.size': 15})
 
 
@@ -396,11 +396,11 @@ def getRepresentativeFunction(utilityXML):
             if "</criteria>" in x:
                 break
             a = search('<criterion id="(.+)">', x)
-            if a != None:
+            if a is not None:
                 criterion = a.group(1)
                 dicty[criterion] = {}
             if afterAxis >= 0:
-                value = search("<(.+)>(.+)</(.+)>",x) # it suffices to do so ...
+                value = search("<(.+)>(.+)</(.+)>", x)  # it suffices to do so ...
                 u = value.group(2)
                 if afterAxis == 0:
                     # u may not be a number
@@ -419,6 +419,35 @@ def getRepresentativeFunction(utilityXML):
             elif "<ordinate>" in x:
                 afterAxis = 1
     return dicty
+
+
+def evalRepresentativeFunction(dictFunction, alternativesToEvaluate, file=''):
+    """
+    Evaluats the function given as the dictionary {'cr0': {x00: y00, x01: y01, ...}, ...} on the list of indices of
+    alternatives alternativesToEvaluate (with respect to myAlternatives). Indices of criteria correspond
+    to the criteriaNames.
+    :param dictFunction:
+    :param alt:
+    :param crit:
+    :return: list of values representativeFunction(alternative)
+    """
+    _, _, performances = readPerformanceCSV()
+    evaluations = {myAlternatives[ind_a]: 0.0 for ind_a in alternativesToEvaluate}
+    for ind_a in alternativesToEvaluate:
+        a = myAlternatives[ind_a]
+        for ind_cr, cr in enumerate(criteriaNames):
+            value = numberTypes[ind_cr](performances[a][cr])
+            evaluations[a] += dictFunction["cr{}".format(ind_cr)][value]
+    if file != '':
+        with open(file, "w") as f:
+            print("alternative,mostRepresentativeUtilityFunction(alternative)", file=f)
+            for x in sorted(evaluations, key=lambda u: -evaluations[u]):
+                print("{},{:.4f}".format(x, evaluations[x]), file=f)
+    else:
+        print("alternative,mostRepresentativeUtilityFunction(alternative)")
+        for x in sorted(evaluations, key=lambda u: -evaluations[u]):
+            print("{},{:.4f}".format(x, evaluations[x]))
+
 
 ###################################################################################
 # Plotting: relations and utility function                                        #
@@ -572,16 +601,17 @@ def drawUtilityFunction(divizWorkflowFolder, criteriaNames, file="", dimGraphs=(
     graphs = {i:[] for i in range(n)}   # {crit1: (list of xs, list of ys, list of x-labels), ...}
     for i in range(n):
         criteria = "cr{}".format(i)
-        points = sorted(functionDict[criteria].items(), key = lambda x: x[1])
+        points = sorted(functionDict[criteria].items(), key=lambda x: x[1])
         try:
-            xs = [float(t) for t,u in points] #this will cause an Exception if there is a non-numeric criterium
-            namesX = [str(x) for x in xs]
+            xs = [float(t) for t, u in points]  # this will cause an Exception if there is a non-numeric criterion
+            namesX = [str(x) if i < len(xs) - 1 and abs(xs[i + 1] - x) > 4.0 or i == len(xs) else "" for i, x in enumerate(xs)]
         except:
+            print("rarara")
             xs = [t for t in range(len(points))]
-            namesX = [t for t,u in points]
-        ys = [float(u) for t,u in points]
+            namesX = [t for t, u in points]
+        ys = [float(u) for t, u in points]
 
-        graphs[i] = (xs, ys, namesX)
+        graphs[i] = (xs, ys, namesX[::])
     for i in range(n, dimGraphs[0] * dimGraphs[1]):
         graphs[i] = ([0],[0], [""])
 
@@ -596,7 +626,7 @@ def drawUtilityFunction(divizWorkflowFolder, criteriaNames, file="", dimGraphs=(
                 axes[i][j].scatter(xs, ys, color='r')
                 axes[i][j].set_title(criteriaNames[ind])
                 if i in [0,2] and j == 0:
-                    plt.sca(axes[i][j])
+                    plt.sca(axes[i, j])
                     plt.xticks(xs, prefTypes, rotation='90')
             else:
                 axes[i][j].text(0.5, 0.5, 'EMPTY', horizontalalignment='center')
@@ -752,8 +782,10 @@ intensitiesOfPrefXML([strongInt, weakInt, indifInt])    # intensities of prefere
 
 
 # PLOT THE RELATIONS AND MOST REPRESENTATIVE UTILITY FUNCTION
-#drawRelations(alt, divizWFfolder, True, divizRun=variants[ind])             # here, we have renamed the diviz run, so
-#drawRelations(alt, divizWFfolder, False, divizRun=variants[ind])            # that it equals the name of the variant
-for indi in range(3):
-    dicty = drawUtilityFunction(divizWFfolder, criteria, file=variants[indi])    # of user defined preferecnes.
+drawRelations(alt, divizWFfolder, True, divizRun=variants[ind])                               # here, we have renamed the diviz run, so
+drawRelations(alt, divizWFfolder, False, divizRun=variants[ind])                              # that it equals the name of the variant
+dicty = drawUtilityFunction(divizWFfolder, criteria, file=variants[ind], dimGraphs=(4, 2))    # of user defined preferecnes.
+
+# EVALUATE THE ALTERNATIVES
+evalRepresentativeFunction(dicty, list(range(len(myAlternatives))), file="./carsExample/utilities_{}.csv".format(variants[ind]))
 
