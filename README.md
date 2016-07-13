@@ -13,7 +13,10 @@ One should proceed as follows:
  
 1. Use the script `roruta.py` to create all input files and include them into the workflow in diviz.
 2. Run the workflow.
-3. Use the script `roruta.py` to analyse the results.
+3. Use the script `roruta.py` to analyse the results:
+    - draw necessary and possible relations,
+    - plot the most representative utility function,
+    - evaluate the most representative utility function on the alternatives.
 
 First of all, the following values must be set:
 
