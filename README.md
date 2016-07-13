@@ -90,3 +90,7 @@ Element `[aI, aJ]` of the list for relation `R` (strong: `>`, weak: `>=`, indiff
 `aI R aJ`.
 Element `[[aI1, aJ1], [aI2, aJ2]]` of the list for intensities of the relation `R`, means that
 `U(aI1) - U(aJ1) R U(aI2) - U(aJ2)` for all utility functions `U`, and `R` as in the upper case.
+
+#### Defining relations
+
+Working example bases on data from [this]() page and the weighted sum model `carsExample/weightedSumModel.xlsx`.
