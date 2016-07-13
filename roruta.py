@@ -31,9 +31,9 @@ def toSlash(myPath):
     return "".join(p)
 
 
-###################################################################################
-# Performance table creation and reading                                          #
-###################################################################################
+#############################################################################################
+# Performance table creation and reading                                                    #
+#############################################################################################
 
 
 def populatePerfTableDict(alternativeName):
@@ -107,9 +107,9 @@ def readPerformanceCSV():
             perf[line[0]] = {critNames[i - 1]: line[i] for i in range(1, len(line))}
     return alter, critNames, perf
 
-###################################################################################
-# Creating necessary XML settings files for diviz                                 #
-###################################################################################
+#############################################################################################
+# Creating necessary XML settings files for diviz                                           #
+#############################################################################################
 
 
 def header():
@@ -375,6 +375,91 @@ def intensitiesOfPrefXML(pairsOfPairs):
         printf(endTag())
 
 
+#############################################################################################
+# User defined relations                                                                    #
+#############################################################################################
+
+
+def defineStrongRelations(fileRels):
+    """
+    Reads a file with user defined strong relations.
+
+    :param fileRels: pathToMyRels/myRels, where myRels is a file with user defined strict relations, for example
+    a2 > a4
+    a0 > a2
+    a42 > a12
+    (if user defined 3 relations). The id numbers should be >= 0. The alternatives should be indexed with respect to
+    their order in the list myAlternatives.
+    :return: List of pairs [[2, 3], [0, 2], [42, 12]] (if we follow the same example).
+    """
+
+    def pomo(x):
+        return "a{}".format(x)
+    prefList = []
+    with open(fileRels, "r") as f:
+        for x in f:
+            line = x.strip()
+            if line:
+                a = search("a([0-9]+) > a([0-9]+)", line)
+                prefList.append([a.group(1), a.group(2)])
+    prefList = [[pomo(x), pomo(y)] for [x, y] in prefList]
+    return prefList
+
+
+def createRandomSubsampleOfAllRelations(linearOrder, size, file, randomSeed=12345):
+    """
+    We sample uniformly at random some relations and save them to file.
+    :param linearOrder: [indexOfTheBestAlternative, indexOfSecondBestAlternative, ...], where indices >= 0 and they
+    correspond to the list myAlternatives.
+    :param size: the size of the random sample
+    :param randomSeed: randomSeed used
+    :param file: The subsample will be saved to inputFolder/preferences/file.pref
+    :return:
+    """
+    seed(randomSeed)
+    indices = {x: i for i, x in enumerate(linearOrder)}
+    n = len(linearOrder)
+    maxPairs = n * (n + 1) // 2
+    if not 0 <= size <= maxPairs:
+        raise Exception("size = {} breaks the assumption 0 <= size <= #different pairs.".format(size))
+    subsample = set()
+    while len(subsample) < size:
+        ind1 = int(random() * n)
+        ind2 = int(random() * n)
+        while ind2 == ind1:
+            ind2 = int(random() * n)
+        ind1, ind2 = (ind1, ind2) if ind1 < ind2 else (ind2, ind1)
+        subsample.add((linearOrder[ind1], linearOrder[ind2]))
+    with open("{}/preferences/{}.pref".format(inputFolder, file), "w") as f:
+        for (alt1, alt2) in subsample:
+            better = max(alt1, alt2, key=lambda x: -indices[x])
+            worse = min(alt1, alt2, key=lambda x: -indices[x])
+            print("a{} > a{}".format(better, worse), file=f)
+
+
+def createLinearRelations(linearOrder, file):
+    """
+    From the list linearOrder = [indexOfTheBestAlternative, indexOfSecondBestAlternative, ...] of length n,
+    we create a file that contains n - 1 lines:
+
+    a<indexOfTheBestAlternative> > a<indexOfSecondBestAlternative>
+    ...
+    a<indexOf(n-1)BestAlternative> > a<indexOf(n)BestAlternative>
+
+    :param linearOrder:
+    :param file: The relations will be saved to inputFolder/preferences/file.pref
+    :return:
+    """
+    with open("{}/preferences/{}.pref".format(inputFolder, file), "w") as f:
+        for i in range(len(linearOrder) - 1):
+            print("a{} > a{}".format(linearOrder[i], linearOrder[i + 1]), file=f)
+
+
+#############################################################################################
+# Analyzing results: relations and utility function                                         #
+#############################################################################################
+
+
 def getRepresentativeFunction(utilityXML):
     """
     Reads the XML file of the most representative utility function and returns it as a dictionary.
@@ -450,11 +535,6 @@ def evalRepresentativeFunction(dictFunction, alternativesToEvaluate, file='', so
         print("alternative,mostRepresentativeUtilityFunction(alternative)")
         for x in sorted(evaluations, key=sortingCriteron):
             print("{},{:.4f}".format(x, evaluations[x]))
-
-
-###################################################################################
-# Plotting: relations and utility function                                        #
-###################################################################################
 
 
 def readRelations(relations, inputRels):
@@ -637,86 +717,6 @@ def drawUtilityFunction(divizWorkflowFolder, criteriaNames, file="", dimGraphs=(
     plt.tight_layout()
     plt.show()
     return functionDict
-
-
-##################################################################################
-# User defined relations                                                         #
-##################################################################################
-
-
-def defineStrongRelations(fileRels):
-    """
-    Reads a file with user defined strong relations.
-
-    :param fileRels: pathToMyRels/myRels, where myRels is a file with user defined strict relations, for example
-    a2 > a4
-    a0 > a2
-    a42 > a12
-    (if user defined 3 relations). The id numbers should be >= 0. The alternatives should be indexed with respect to
-    their order in the list myAlternatives.
-    :return: List of pairs [[2, 3], [0, 2], [42, 12]] (if we follow the same example).
-    """
-
-    def pomo(x):
-        return "a{}".format(x)
-    prefList = []
-    with open(fileRels, "r") as f:
-        for x in f:
-            line = x.strip()
-            if line:
-                a = search("a([0-9]+) > a([0-9]+)", line)
-                prefList.append([a.group(1), a.group(2)])
-    prefList = [[pomo(x), pomo(y)] for [x, y] in prefList]
-    return prefList
-
-
-def createRandomSubsampleOfAllRelations(linearOrder, size, file, randomSeed=12345):
-    """
-    We sample uniformly at random some relations and save them to file.
-    :param linearOrder: [indexOfTheBestAlternative, indexOfSecondBestAlternative, ...], where indices >= 0 and they
-    correspond to the list myAlternatives.
-    :param size: the size of the random sample
-    :param randomSeed: randomSeed used
-    :param file: The subsample will be saved to inputFolder/preferences/file.pref
-    :return:
-    """
-    seed(randomSeed)
-    indices = {x: i for i, x in enumerate(linearOrder)}
-    n = len(linearOrder)
-    maxPairs = n * (n + 1) // 2
-    if not 0 <= size <= maxPairs:
-        raise Exception("size = {} breaks the assumption 0 <= size <= #different pairs.".format(size))
-    subsample = set()
-    while len(subsample) < size:
-        ind1 = int(random() * n)
-        ind2 = int(random() * n)
-        while ind2 == ind1:
-            ind2 = int(random() * n)
-        ind1, ind2 = (ind1, ind2) if ind1 < ind2 else (ind2, ind1)
-        subsample.add((linearOrder[ind1], linearOrder[ind2]))
-    with open("{}/preferences/{}.pref".format(inputFolder, file), "w") as f:
-        for (alt1, alt2) in subsample:
-            better = max(alt1, alt2, key=lambda x: -indices[x])
-            worse = min(alt1, alt2, key=lambda x: -indices[x])
-            print("a{} > a{}".format(better, worse), file=f)
-
-
-def createLinearRelations(linearOrder, file):
-    """
-    From the list linearOrder = [indexOfTheBestAlternative, indexOfSecondBestAlternative, ...] of length n,
-    we create a file that contains n - 1 lines:
-
-    a<indexOfTheBestAlternative> > a<indexOfSecondBestAlternative>
-    ...
-    a<indexOf(n-1)BestAlternative> > a<indexOf(n)BestAlternative>
-
-    :param linearOrder:
-    :param file: The relations will be saved to inputFolder/preferences/file.pref
-    :return:
-    """
-    with open("{}/preferences/{}.pref".format(inputFolder, file), "w") as f:
-        for i in range(len(linearOrder) - 1):
-            print("a{} > a{}".format(linearOrder[i], linearOrder[i + 1]), file=f)
 
 
 #############################################################################################
