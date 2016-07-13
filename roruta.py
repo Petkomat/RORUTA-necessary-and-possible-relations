@@ -421,7 +421,7 @@ def getRepresentativeFunction(utilityXML):
     return dicty
 
 
-def evalRepresentativeFunction(dictFunction, alternativesToEvaluate, file=''):
+def evalRepresentativeFunction(dictFunction, alternativesToEvaluate, file='', sortByUtility=True):
     """
     Evaluats the function given as the dictionary {'cr0': {x00: y00, x01: y01, ...}, ...} on the list of indices of
     alternatives alternativesToEvaluate (with respect to myAlternatives). Indices of criteria correspond
@@ -438,14 +438,15 @@ def evalRepresentativeFunction(dictFunction, alternativesToEvaluate, file=''):
         for ind_cr, cr in enumerate(criteriaNames):
             value = numberTypes[ind_cr](performances[a][cr])
             evaluations[a] += dictFunction["cr{}".format(ind_cr)][value]
+    sortingCriteron = (lambda u: -evaluations[u]) if sortByUtility else lambda u: u
     if file != '':
         with open(file, "w") as f:
             print("alternative,mostRepresentativeUtilityFunction(alternative)", file=f)
-            for x in sorted(evaluations, key=lambda u: -evaluations[u]):
+            for x in sorted(evaluations, key=sortingCriteron):
                 print("{},{:.4f}".format(x, evaluations[x]), file=f)
     else:
         print("alternative,mostRepresentativeUtilityFunction(alternative)")
-        for x in sorted(evaluations, key=lambda u: -evaluations[u]):
+        for x in sorted(evaluations, key=sortingCriteron):
             print("{},{:.4f}".format(x, evaluations[x]))
 
 
@@ -769,7 +770,8 @@ ind = 2
 strong = []                                             # [["a0", "a8"],["a1","a2"],["a3", "a8"],["a6","a7"],["a1","a0"],["a4","a3"],["a2","a4"],["a5","a8"]]
 weak = []                                               # [["a0", "a1"]]#[["a3", "a0"]]
 indif = []                                              # [["a2","a7"],["a7", "a2"],["a1","a6"],["a6","a1"],["a5","a6"],["a6","a5"]][:0]#[["a6","a7"],["a7","a6"]]#[["a1" ,"a2"]]
-strong = defineStrongRelations("{}/preferences/{}".format(inputFolder, "{}.pref".format(variants[ind])))  # user-defined strong relations
+
+strong = defineStrongRelations("{}/preferences/{}".format(inputFolder, "{}.pref".format(variants[ind])))
 preferencesXML([strong, weak, indif])                   # preferences
 
 directions = [1, 0, 0, 0, 0, 1, 0, 0]
@@ -787,5 +789,4 @@ drawRelations(alt, divizWFfolder, False, divizRun=variants[ind])                
 dicty = drawUtilityFunction(divizWFfolder, criteria, file=variants[ind], dimGraphs=(4, 2))    # of user defined preferecnes.
 
 # EVALUATE THE ALTERNATIVES
-evalRepresentativeFunction(dicty, list(range(len(myAlternatives))), file="./carsExample/utilities_{}.csv".format(variants[ind]))
-
+evalRepresentativeFunction(dicty, list(range(len(myAlternatives))), file="", sortByUtility=False)
