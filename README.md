@@ -4,16 +4,16 @@ Use of the widgets `RORUTA-NecessaryAndPossiblePreferenceRelations` and `RORUTA-
 
 ## Dependencies
 
-- `Python3`; if you want to plot the most representative utility function, the `matplotlib` library is needed
+- `Python3`; if you want to plot the most representative utility function, the `matplotlib` library is needed also
 - `diviz` (tested on the version `1.15.1`)
 
 ## Useful notes
 
 One should proceed as follows:
  
-1. Use this script to create all input files and include them into the workflow in diviz.
+1. Use the script `roruta.py` to create all input files and include them into the workflow in diviz.
 2. Run the workflow.
-3. Use this script to analyse the results.
+3. Use the script `roruta.py` to analyse the results.
 
 First of all, the following values must be set:
 
