@@ -8,7 +8,7 @@ from random import random, seed
 
 
 # set the size of picture and font for pyplot
-plt.rcParams['figure.figsize'] = 10, 20
+plt.rcParams['figure.figsize'] = 20, 10
 plt.rcParams.update({'font.size': 15})
 
 
@@ -427,8 +427,10 @@ def evalRepresentativeFunction(dictFunction, alternativesToEvaluate, file='', so
     alternatives alternativesToEvaluate (with respect to myAlternatives). Indices of criteria correspond
     to the criteriaNames.
     :param dictFunction:
-    :param alt:
-    :param crit:
+    :param alternativesToEvaluate:
+    :param file: if file == '', the results are standardly output, otherwise, they are saved to the file.
+    :param sortByUtility: if True, the alternatives are sorted in descreasing order by their utilites when producing
+    output, otherwise, the alternatives are sorted as in alternativesToEvalueate.
     :return: list of values representativeFunction(alternative)
     """
     _, _, performances = readPerformanceCSV()
@@ -501,7 +503,7 @@ def latestRun(folder):
     :return: The name of the latest output file from a folder of the output files folder
     """
 
-    files = [f for f in listdir(folder) if "current" not in f] # folder names
+    files = [f for f in listdir(folder) if "current" not in f]  # folder names
     return max(files)
 
 
@@ -511,9 +513,10 @@ def drawRelations(alter, divizWorkflowFolder, necessaryRels, divizRun=""):
     alternative_i R alternative_j, where R is discovered / user defined relation.
     (For all feasible models, user defined relations are subset of discovered relations.
     If the model is infeasible, then the output xmls are non-existent, hence there is no possible
-    source of confusion.)
+    source of confusion, from where the given relation comes.)
 
-    :param alter: list of names of alternatives, e.g., ['Volvo', 'Skoda', ...] and not ['a2', 'a0', ...]
+    :param alter: list with the real names of alternatives, e.g., ['Mazda CX-5 SkyActiv-D 150 Skylease GT 2015 - 2016', ...]
+    and not ['a1', ...]
     :param divizWorkflowFolder: root folder of a workflow, where the outputs are stored, e.g.,
     'C:/Users/user/diviz_workspace/rorUtaNecessaryAndPossibleRelations'
     :param necessaryRels: bool, if necessaryRels, then we draw necessary relations, otherwise we draw possible-ones
@@ -557,8 +560,8 @@ def drawRelations(alter, divizWorkflowFolder, necessaryRels, divizRun=""):
     height = 700
     width = height
     window = Tk()
-    window.title(("Neccesary" if necessaryRels else "Possible") +  " relations")
-    canv = Canvas(window, height = height, width = width, bg="black")
+    window.title(("Necessary" if necessaryRels else "Possible") + " relations")
+    canv = Canvas(window, height=height, width=width, bg="black")
     canv.grid(row=0, column=0)
 
     offset = 50
@@ -605,9 +608,8 @@ def drawUtilityFunction(divizWorkflowFolder, criteriaNames, file="", dimGraphs=(
         points = sorted(functionDict[criteria].items(), key=lambda x: x[1])
         try:
             xs = [float(t) for t, u in points]  # this will cause an Exception if there is a non-numeric criterion
-            namesX = [str(x) if i < len(xs) - 1 and abs(xs[i + 1] - x) > 4.0 or i == len(xs) else "" for i, x in enumerate(xs)]
+            namesX = [str(x) for i, x in enumerate(xs)]
         except:
-            print("rarara")
             xs = [t for t in range(len(points))]
             namesX = [t for t, u in points]
         ys = [float(u) for t, u in points]
@@ -652,7 +654,7 @@ def defineStrongRelations(fileRels):
     a42 > a12
     (if user defined 3 relations). The id numbers should be >= 0. The alternatives should be indexed with respect to
     their order in the list myAlternatives.
-    :return: List of pairs [[2,3],[0,2], [42, 12]] (if we follow the same example).
+    :return: List of pairs [[2, 3], [0, 2], [42, 12]] (if we follow the same example).
     """
 
     def pomo(x):
@@ -672,7 +674,7 @@ def createRandomSubsampleOfAllRelations(linearOrder, size, file, randomSeed=1234
     """
     We sample uniformly at random some relations and save them to file.
     :param linearOrder: [indexOfTheBestAlternative, indexOfSecondBestAlternative, ...], where indices >= 0 and they
-    correspond to the myAlternatives.
+    correspond to the list myAlternatives.
     :param size: the size of the random sample
     :param randomSeed: randomSeed used
     :param file: The subsample will be saved to inputFolder/preferences/file.pref
@@ -703,6 +705,7 @@ def createLinearRelations(linearOrder, file):
     """
     From the list linearOrder = [indexOfTheBestAlternative, indexOfSecondBestAlternative, ...] of length n,
     we create a file that contains n - 1 lines:
+
     a<indexOfTheBestAlternative> > a<indexOfSecondBestAlternative>
     ...
     a<indexOf(n-1)BestAlternative> > a<indexOf(n)BestAlternative>
