@@ -93,4 +93,4 @@ Element `[[aI1, aJ1], [aI2, aJ2]]` of the list for intensities of the relation `
 
 #### Defining relations
 
-Working example bases on data from [this]() page and the weighted sum model `carsExample/weightedSumModel.xlsx`.
+Working example bases on data from [this](http://www.cars-data.com/) page and the weighted sum model `carsExample/weightedSumModel.xlsx`.
