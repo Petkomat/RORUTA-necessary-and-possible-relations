@@ -46,7 +46,7 @@ Strings describing paths should contain `/` and not `\`, and should not end with
 
 The following file structure is expected:
 
-##### Input files
+#### Input files
   ````
 inputFolder/
     performanceTableCSV (file)
@@ -56,7 +56,7 @@ inputFolder/
     preferences         (folder)
     ...
 ````
-##### Output files
+#### Output files
 ````
 divizWFfolder/
     projectName/
@@ -70,7 +70,7 @@ It is necessary for the diviz workflow with the name `projectName`, to have the 
 see the ![workflow structure](https://github.com/Petkomat/RORUTA-necessary-and-possible-relations/blob/master/workflow.pdf "Diviz workflow").
 
 
-##### Defining relations
+#### Defining relations
 
 When defining your relations/preferences, do not use the real names in the pairs:
 A list of (for example, strog) relations
@@ -90,6 +90,3 @@ Element `[aI, aJ]` of the list for relation `R` (strong: `>`, weak: `>=`, indiff
 `aI R aJ`.
 Element `[[aI1, aJ1], [aI2, aJ2]]` of the list for intensities of the relation `R`, means that
 `U(aI1) - U(aJ1) R U(aI2) - U(aJ2)` for all utility functions `U`, and `R` as in the upper case.
-
-##### Choosing a particular run to be analysed
-This is described in the documentation of the 'plotting' functions.
