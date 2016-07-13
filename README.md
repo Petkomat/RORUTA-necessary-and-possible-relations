@@ -32,7 +32,7 @@ First of all, the following values must be set:
         by the functions, such as `alternativesXML` etc. In the folder `divizWFfolder/projectName`, one can find all files, produced by diviz,
         when running the workflow.
 - `preferences`: this folder is not necessary, if we get user-defined preferences
-        from some other source (for example, by defining them directly in this script)
+        from some other source (for example, by defining them directly in `roruta.py`)
         or if we simply do not have any.
         However, if the folder is there, we expect that it contains `.pref` files
         which are ordinary text files, that must be compatible with the function that reads them:
@@ -49,7 +49,9 @@ inputFolder/
     performanceTableCSV (file)
     myProjects          (folder)
         projectName     (folder)
+        ....
     preferences         (folder)
+    ...
 ````
 ##### Output files
 ````
